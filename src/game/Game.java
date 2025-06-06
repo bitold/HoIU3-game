@@ -277,7 +277,7 @@ public class Game implements Serializable {
         return controller;
     }
 
-    void gameCycle(){
+    public void gameCycle(){
         boolean flag = true;
         while (flag){
             if (checkEngame(currentlyMoving)){

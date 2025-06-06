@@ -146,7 +146,8 @@ public class GameMenu implements Serializable {
 
     public void mainMenuCycle(String nickname){
         while (runMainMenu(nickname));
-        startGameIfNeverStarted();
+        game.gameCycle();
+        //startGameIfNeverStarted();
     }
 
 
