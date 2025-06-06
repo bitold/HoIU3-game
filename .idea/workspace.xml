@@ -4,67 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53f9d435-6d22-441f-8692-d8d5f498e701" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/HoIU3-game.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Asset.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Asset.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Cell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Cell.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Entity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Entity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Hero.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Hero.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Unit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/asset/Unit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/castle/Castle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/castle/Castle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/castle/CastleUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/castle/CastleUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/CellClassificator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/CellClassificator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/ShopBuildingClassificator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/ShopBuildingClassificator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/UnitClassificator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/classification/UnitClassificator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/control/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/control/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/game/Battle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/game/Battle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/game/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/main/LAB1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/main/LAB1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/map/BattleMap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/map/BattleMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/map/GameMap.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/map/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/GameMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/BuyingMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/BuyingMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/ControllerMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/ControllerMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/GameMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/GameMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/StarterMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/menus/StarterMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Coordinates.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Coordinates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Locator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Locator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Misc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/Misc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/SaveSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/SaveSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/misc/SpaceWarden.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/player/Computer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/player/Computer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/player/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/4sem_proglabs/player/Player.java" beforeDir="false" />
-    </list>
+    <list default="true" id="53f9d435-6d22-441f-8692-d8d5f498e701" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +35,7 @@
     "Application.LAB1.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "savesystem",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/HoIU3-game",
     "project.structure.last.edited": "Artifacts",
