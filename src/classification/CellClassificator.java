@@ -62,7 +62,6 @@ public enum CellClassificator {
     private static String resolveDesign(CellClassificator cellClass, Player owner) {
         String design = cellClass.getDesign();
         if (owner == null) return design.substring(1, 2);
-        System.out.println("выбираем дизайн клетке игроку " + owner + design.substring(0, 1) + design.substring(2, 3));
         return switch (owner.getNickname()) {
             case "Player" -> design.substring(0, 1);
             case "Computer" -> design.substring(2, 3);

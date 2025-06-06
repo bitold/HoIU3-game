@@ -7,16 +7,24 @@ import castle.Castle;
 import game.Game;
 import map.GameMap;
 import misc.Coordinates;
+import misc.MapEditor;
 import misc.SaveSystem;
 import player.Player;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Logger;
 
+
+
 public class GameMenu implements Serializable {
+    private static final String MAPS_DIR = "maps";
     Game game;
     GameMap gameMap;
     GameMap battleMap;
@@ -158,7 +166,8 @@ public class GameMenu implements Serializable {
         System.out.println("2. Сохранить игру");
         System.out.println("3. Загрузить игру");
         System.out.println("4. Таблица рекордов");
-        System.out.println("5. Выйти");
+        System.out.println("5. Редактор карт");
+        System.out.println("6. Выйти");
 
         String input = scanner.nextLine();
         switch (input){
@@ -176,6 +185,9 @@ public class GameMenu implements Serializable {
             case "4":
                 break;
             case "5":
+                EditorMenu editorMenu = new EditorMenu();
+                editorMenu.run();
+            case "6":
                 System.exit(0);
                 return false;
         }
@@ -203,18 +215,62 @@ public class GameMenu implements Serializable {
     private void gameCreationSetupMenu(String nickname, Scanner scanner){
         System.out.println("Выберите карту: ");
         System.out.println("0. Сгенерировать стандартную карту");
+        System.out.println("1. Выбрать кастомную карту");
         String choice = scanner.nextLine();
         switch (choice){
             case "0":
                 standartGameCreationMenu(nickname);
                 break;
+            case "1":
+                customMapGameCreationMenu(nickname);
+                break;
         }
     }
 
+    private void customMapGameCreationMenu(String nickname){
+        printAvailableMaps();
+        System.out.println("Введите название карты: ");
+        String choice = scanner.nextLine();
+        try {
+            GameMap map = GameMap.loadFromFile(MAPS_DIR + "/" + choice + ".dat");
+            Game game = new Game();
+            game.initializeCustomMapGame(map, nickname);
+            this.game = game;
+            this.gameMap = game.getGameMap();
+            game.setGameMenu(this);
+        } catch (Exception e) {
+            System.out.println("Что-то пошло не так. Попробуйте снова.");
+        }
+    }
+
+    private void printAvailableMaps(){
+        try {
+            Path mapsDir = Paths.get(MAPS_DIR);
+
+            // Проверяем существование папки
+            if (!Files.exists(mapsDir)) {
+                System.out.println("Папка '" + MAPS_DIR + "' не найдена. Доступных карт нет.");
+                return;
+            }
+
+            // Получаем список файлов с расширением .dat
+            System.out.println("Доступные карты:");
+            Files.list(mapsDir)
+                    .filter(path -> path.toString().endsWith(".dat"))
+                    .forEach(path -> {
+                        String fileName = path.getFileName().toString();
+                        String mapName = fileName.substring(0, fileName.lastIndexOf(".dat"));
+                        System.out.println("- " + mapName);
+                    });
+
+        } catch (IOException e) {
+            logger.severe("Ошибка при чтении папки maps: " + e.getMessage());
+            System.out.println("Не удалось загрузить список карт.");
+        }
+    }
 
     private void standartGameCreationMenu(String nickname){
         System.out.println("Введите размеры карты. Её стороны должны быть длиной не менее 5 клеток.");
-
         int w, h;
         while (true) {
             try {

@@ -53,6 +53,7 @@ public class GameMap implements Serializable {
     public GameMap(int h, int w){
         this.width = w;
         this.height = h;
+        generateGrassMapMatrix();
     }
 
     public Asset[][] getMatrix(){
@@ -131,7 +132,14 @@ public class GameMap implements Serializable {
 
         return result;
     }
-
+    private void generateGrassMapMatrix(){
+        mapMatrix = new Asset[width][height];
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                mapMatrix[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);
+            }
+        }
+    }
     public void surroundPointWithFriendlyGrass(int x, int y, double radius, Player owner){
         for (int i = (int) (-radius); i < radius; i++){
             for (int j = (int) (-radius); j < radius; j++){
@@ -307,4 +315,24 @@ public class GameMap implements Serializable {
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
     }
+
+
+    // Установка клетки по координатам
+    public void setTile(int x, int y, Cell cell) {
+        if (isValidCoordinates(x, y)) {
+            mapMatrix[y][x] = cell;
+        } else {
+            System.out.println("Некорректные координаты!");
+        }
+    }
+
+    // Проверка координат
+    private boolean isValidCoordinates(int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+
+
+
+
 }

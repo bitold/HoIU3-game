@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53f9d435-6d22-441f-8692-d8d5f498e701" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/HoIU3-game.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/menus/EditorMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/misc/MapEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/castle/Castle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/castle/Castle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/classification/CellClassificator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/classification/CellClassificator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/map/GameMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/map/GameMap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/GameMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/menus/GameMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/castle/Castle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/castle/Castle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/CellClassificator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classification/CellClassificator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/map/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/GameMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/menus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/GameMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

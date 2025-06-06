@@ -155,7 +155,85 @@ public class Game implements Serializable {
         gameMenu = new GameMenu(this);
         gameMenu.setGameMap(gameMap);
         // Переключение статуса игры
-        //status = "buying";
+        status = "buying";
+        // Запуск игрового цикла
+        currentlyMoving = player;
+    }
+
+    public void initializeCustomMapGame(GameMap map, String nickname){
+        // Инициализация сражающихся-пустышек
+        battlers.add(null);
+        battlers.add(null);
+
+        // Генерация карты и координат замков
+        gameMap = map;
+        ArrayList<Coordinates> castlesCoordinates = Misc.balancedPositionFor2Castles(gameMap);
+        int c1x = castlesCoordinates.get(0).getX();
+        int c1y = castlesCoordinates.get(0).getY();
+        int c2x = castlesCoordinates.get(1).getX();
+        int c2y = castlesCoordinates.get(1).getY();
+        this.gameMap.setMapMatrix(gameMap.generateMapMatrix(gameMap.getHeight(),gameMap.getWidth(), c1x, c1y, c2x, c2y));
+        this.gameMap.setMatrix(gameMap.generateMapMatrix(gameMap.getHeight(),gameMap.getWidth(), c1x, c1y, c2x, c2y));
+
+        // Инициализация игрока
+        ArrayList<Hero> heroes = new ArrayList<>();
+        player = new Player(heroes, 20, nickname, this);
+        player.setCastle(new Castle(true, "И", c1x, c1y, player, gameMap));
+        player.addHero(new Hero(0,0,"Δ",10,100,50,1, player));
+        player.giveGold(1000);
+
+        // Выдача контроллера игроку (к задумке что при нескольких игроках у каждого был бы свой контроллер, и их был бы целый список?)
+        controller = new Controller(gameMap, this);
+        controller.setOwner(player);
+        this.controllerMenu = controller.getControllerMenu();
+
+        // Ввод дефолтного героя в замок
+        player.getCastle().getCastleUI().enterCastle(player.getHeroes().getFirst());
+
+        // Инициализация компьютера
+        ArrayList<Hero> computerHeroes = new ArrayList<>();
+        computer = new Computer(computerHeroes, 20, player, gameMap, battleMap, this);
+        computer.setCastle(new Castle(false, "К", c2x, c2y, computer, gameMap));
+        computer.addHero(new Hero(0,0,"∇",10,100,50,1, computer));
+        computer.addHero(new Hero(0,0,"∇",10,100,50,1, computer));
+        computer.giveGold(1000);
+        System.out.println(computer.getNickname());
+        computer.acquireWeakArmy();
+
+        gameMap.surroundPointWithFriendlyGrass(c1x, c1y, 3, player);
+        gameMap.surroundPointWithFriendlyGrass(c2x, c2y, 3, computer);
+
+
+        // Добавление игроков в множество игроков
+        players.add(player);
+        players.add(computer);
+
+        // Получение координат замка
+        int cx = computer.getCastle().getX();
+        int cy = computer.getCastle().getY();
+
+        // Получение координат замка
+        int x = player.getCastle().getX();
+        int y = player.getCastle().getY();
+
+        // Размещение замков на "ландшафтной" карте
+        gameMap.setMapMatrix(x, y, player.getCastle());
+        gameMap.setMapMatrix(cx, cy, computer.getCastle());
+        // Размещение на обычной карте
+        gameMap.setMatrix(x, y, player.getCastle());
+        gameMap.setMatrix(cx, cy, computer.getCastle());
+
+        // Выгрузка всех героев игкрока на карту на вертикали замка
+        verticalHeroLoadup(player);
+
+        // Выгрузка всех героев компьютера на карту на вертикали замка
+        verticalHeroLoadup(computer);
+
+        // Создание меню
+        gameMenu = new GameMenu(this);
+        gameMenu.setGameMap(gameMap);
+        // Переключение статуса игры
+        status = "buying";
         // Запуск игрового цикла
         currentlyMoving = player;
     }

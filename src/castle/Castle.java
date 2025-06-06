@@ -27,7 +27,6 @@ public class Castle extends Asset {
         this.defaultDurability = 2;
         this.currentDurability = this.defaultDurability;
         this.setMap(map);
-        System.out.println("ЗАМОК СОЗДАН");
     }
 
     public void setVisitor(Hero visitor) {
