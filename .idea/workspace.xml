@@ -5,6 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53f9d435-6d22-441f-8692-d8d5f498e701" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maps/map1.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maps/map2.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/HoIU3-game/menus/EditorMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/HoIU3-game/misc/MapEditor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/saves/b/slot1.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/saves/b/slot9.dat" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/menus/EditorMenu.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/misc/MapEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -51,10 +57,11 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "savesystem",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/4sem_proglabs",
+    "last_opened_file_path": "E:/HoIU3-game",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.5408805"
+    "project.structure.side.proportion": "0.5408805",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager">

@@ -154,8 +154,10 @@ public class GameMenu implements Serializable {
 
     public void mainMenuCycle(String nickname){
         while (runMainMenu(nickname));
+        System.out.println(game.getStatus());
+        startGameIfNeverStarted();
+
         game.gameCycle();
-        //startGameIfNeverStarted();
     }
 
 
@@ -199,6 +201,12 @@ public class GameMenu implements Serializable {
         if (game.getStatus().equals("pregame")){
             game.setStatus("buying");
             game.preGame();
+        } else if (game.getStatus().equals("battle")) {
+            game.render();
+            game.battleCycle();
+        } else {
+            game.render();
+            game.gameCycle();
         }
     }
 
@@ -234,12 +242,14 @@ public class GameMenu implements Serializable {
         try {
             GameMap map = GameMap.loadFromFile(MAPS_DIR + "/" + choice + ".dat");
             Game game = new Game();
+
             game.initializeCustomMapGame(map, nickname);
             this.game = game;
-            this.gameMap = game.getGameMap();
+            this.gameMap = map;
             game.setGameMenu(this);
+
         } catch (Exception e) {
-            System.out.println("Что-то пошло не так. Попробуйте снова.");
+            System.out.println("Что-то пошло не так. Попробуйте снова." + e);
         }
     }
 
@@ -308,6 +318,7 @@ public class GameMenu implements Serializable {
         this.game = game;
         if (game != null) {
             System.out.println("Игра загружена.");
+            game.setFreshlyLoaded(true);
         } else {
             System.out.println("Ошибка загрузки.");
         }

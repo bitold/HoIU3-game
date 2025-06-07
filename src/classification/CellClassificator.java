@@ -5,6 +5,8 @@ import asset.Unit;
 import player.Player;
 import asset.Cell;
 
+import java.util.Objects;
+
 public enum CellClassificator {
     GRASS("Трава", "ӧоө", 5, false, 1.5, null),
     ROAD("Дорога", "■■■",1, false, 1.5, null),
@@ -62,11 +64,19 @@ public enum CellClassificator {
     private static String resolveDesign(CellClassificator cellClass, Player owner) {
         String design = cellClass.getDesign();
         if (owner == null) return design.substring(1, 2);
-        return switch (owner.getNickname()) {
-            case "Player" -> design.substring(0, 1);
-            case "Computer" -> design.substring(2, 3);
-            default -> design.substring(1, 2);
-        };
+        if (owner.getNickname().equals("Computer")){
+            return design.substring(2, 3);
+        }
+        if (Objects.isNull(owner)) {
+            return design.substring(1, 2);
+        } else {
+            return design.substring(0, 1);
+        }
+//        return switch (owner.getNickname()) {
+//            case "Player" -> design.substring(0, 1);
+//            case "Computer" -> design.substring(2, 3);
+//            default -> design.substring(1, 2);
+//        };
     }
 
     public String getDesign() {

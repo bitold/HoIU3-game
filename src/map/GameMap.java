@@ -133,19 +133,31 @@ public class GameMap implements Serializable {
         return result;
     }
     private void generateGrassMapMatrix(){
-        mapMatrix = new Asset[width][height];
+        mapMatrix = new Asset[height][width];
+        matrix = new Asset[height][width];
         for (int i = 0; i < height; i++){
             for (int j = 0; j < width; j++){
                 mapMatrix[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);
+                mapMatrix[i][j].setX(j);
+                mapMatrix[i][j].setY(i);
+                matrix[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);
+                matrix[i][j].setX(j);
+                matrix[i][j].setY(i);
             }
         }
+
     }
     public void surroundPointWithFriendlyGrass(int x, int y, double radius, Player owner){
-        for (int i = (int) (-radius); i < radius; i++){
-            for (int j = (int) (-radius); j < radius; j++){
+        Coordinates center = new Coordinates();
+        center = center.withComponent(1, x).withComponent(2, y);
+        mapMatrix[y][x].setCoordinates(center);
+        for (int i = (int) (-radius); i <= radius; i++){
+            for (int j = (int) (-radius); j <= radius; j++){
                 Coordinates coords = new Coordinates();
                 coords = coords.withComponent(1, x+j).withComponent(2, y+i);
+
                 if (!Coordinates.isOutOfBounds(coords, this)) {
+                    //System.out.print("Координаты центра " + x + " " + y + ". Клетка с координатами " + coords + " ");
                     if (Locator.distance(mapMatrix[y + i][x + j], mapMatrix[y][x]) <= radius && mapMatrix[y+i][x+j] instanceof Cell && ((Cell) mapMatrix[y + i][x + j]).getCellType().equals("GRASS")) {
                         if (mapMatrix[y+i][x+j] instanceof Castle){
                             continue;
@@ -157,12 +169,14 @@ public class GameMap implements Serializable {
                         newCell.setX(x+j);
                         newCell.setY(y+i);
                         mapMatrix[y + i][x + j] = newCell;
-
+                        //System.out.println("Заменена на " + newCell);
 
                         if (!(matrix[y+i][x+j] instanceof Entity)) {
                             matrix[y+i][x+j] = mapMatrix[y+i][x+j];
                         }
                     }
+                } else{
+                    //System.out.println("out of bounds cell");
                 }
             }
         }
@@ -321,6 +335,11 @@ public class GameMap implements Serializable {
     public void setTile(int x, int y, Cell cell) {
         if (isValidCoordinates(x, y)) {
             mapMatrix[y][x] = cell;
+            mapMatrix[y][x].setY(y);
+            mapMatrix[y][x].setX(x);
+            matrix[y][x] = cell;
+            matrix[y][x].setY(y);
+            matrix[y][x].setX(x);
         } else {
             System.out.println("Некорректные координаты!");
         }

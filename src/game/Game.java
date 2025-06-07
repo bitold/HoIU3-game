@@ -32,6 +32,7 @@ public class Game implements Serializable {
     Set<Player> players = new HashSet<>();
     Set<Player> losers = new HashSet<>();
     private static final long serialVersionUID = 1L;
+    boolean freshlyLoaded;
 
     // Пример метода сохранения игры
     public void saveToSlot(String baseDir, String nickname, int slotNumber) {
@@ -79,6 +80,11 @@ public class Game implements Serializable {
         gameMenu = new GameMenu(this);
     }
     public Game(){
+        setFreshlyLoaded(true);
+    }
+
+    public void setFreshlyLoaded(boolean freshlyLoaded) {
+        this.freshlyLoaded = freshlyLoaded;
     }
 
 
@@ -155,7 +161,7 @@ public class Game implements Serializable {
         gameMenu = new GameMenu(this);
         gameMenu.setGameMap(gameMap);
         // Переключение статуса игры
-        status = "buying";
+        //status = "buying";
         // Запуск игрового цикла
         currentlyMoving = player;
     }
@@ -172,8 +178,6 @@ public class Game implements Serializable {
         int c1y = castlesCoordinates.get(0).getY();
         int c2x = castlesCoordinates.get(1).getX();
         int c2y = castlesCoordinates.get(1).getY();
-        this.gameMap.setMapMatrix(gameMap.generateMapMatrix(gameMap.getHeight(),gameMap.getWidth(), c1x, c1y, c2x, c2y));
-        this.gameMap.setMatrix(gameMap.generateMapMatrix(gameMap.getHeight(),gameMap.getWidth(), c1x, c1y, c2x, c2y));
 
         // Инициализация игрока
         ArrayList<Hero> heroes = new ArrayList<>();
@@ -181,6 +185,7 @@ public class Game implements Serializable {
         player.setCastle(new Castle(true, "И", c1x, c1y, player, gameMap));
         player.addHero(new Hero(0,0,"Δ",10,100,50,1, player));
         player.giveGold(1000);
+
 
         // Выдача контроллера игроку (к задумке что при нескольких игроках у каждого был бы свой контроллер, и их был бы целый список?)
         controller = new Controller(gameMap, this);
@@ -197,9 +202,11 @@ public class Game implements Serializable {
         computer.addHero(new Hero(0,0,"∇",10,100,50,1, computer));
         computer.addHero(new Hero(0,0,"∇",10,100,50,1, computer));
         computer.giveGold(1000);
-        System.out.println(computer.getNickname());
+
         computer.acquireWeakArmy();
 
+
+        // Размещение дружественной травы вокруг замков
         gameMap.surroundPointWithFriendlyGrass(c1x, c1y, 3, player);
         gameMap.surroundPointWithFriendlyGrass(c2x, c2y, 3, computer);
 
@@ -233,7 +240,7 @@ public class Game implements Serializable {
         gameMenu = new GameMenu(this);
         gameMenu.setGameMap(gameMap);
         // Переключение статуса игры
-        status = "buying";
+        //status = "buying";
         // Запуск игрового цикла
         currentlyMoving = player;
     }
@@ -375,7 +382,7 @@ public class Game implements Serializable {
     }
 
 
-    void battleCycle(){
+    public void battleCycle(){
         boolean flag = true;
         while (flag){
             if (checkEndBattle(currentlyMoving.getBattler())){
@@ -420,7 +427,10 @@ public class Game implements Serializable {
     }
 
     boolean giveMove(Player player){
-        replenishPlayerEntities(player);
+        if (!freshlyLoaded){
+            replenishPlayerEntities(player);
+        }
+        freshlyLoaded = false;
         if (status.equals("global")){
             player.castleCaptureIteration();
         }

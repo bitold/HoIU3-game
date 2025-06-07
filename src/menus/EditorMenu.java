@@ -59,7 +59,6 @@ public class EditorMenu {
             int width = Integer.parseInt(scanner.nextLine());
             System.out.print("Введите высоту карты: ");
             int height = Integer.parseInt(scanner.nextLine());
-
             GameMap newMap = new GameMap(width, height);
             System.out.println("Новая карта создана.");
             this.map = newMap;

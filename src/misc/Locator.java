@@ -83,11 +83,13 @@ public class Locator {
 
 
     public static double distance(Asset center, Asset target){
-        double x1 = target.getX();
-        double y1 = target.getY();
-        double x2 = center.getX();
-        double y2 = center.getY();
-        return sqrt(pow(x1 - x2, 2) + pow(y1-y2, 2));
+//        double x1 = target.getX();
+//        double y1 = target.getY();
+//        double x2 = center.getX();
+//        double y2 = center.getY();
+        //System.out.println("Вызов функции distance, Координаты центра " + center.getCoordinates() + " Координаты цели " + target.getCoordinates() + " Разность " + center.getCoordinates().subtract(target.getCoordinates()));
+        return (Coordinates.norm(center.getCoordinates().subtract(target.getCoordinates())));
+        //return sqrt(pow(x1 - x2, 2) + pow(y1-y2, 2));
     }
 
     public static Asset getCellWithDqOffset(Entity entity, ArrayList<Integer> dQ){
