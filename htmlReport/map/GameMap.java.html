@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">map</a> &gt; <span class="el_source">GameMap.java</span></div><h1>GameMap.java</h1><pre class="source lang-java linenums">package map;
+
+import asset.Asset;
+import asset.Cell;
+import asset.Entity;
+import castle.Castle;
+import classification.CellClassificator;
+import misc.Coordinates;
+import misc.Locator;
+import misc.SpaceWarden;
+import player.Player;
+
+import java.io.*;
+import java.util.logging.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
+
+import static java.lang.Math.ceil;
+
+public class GameMap implements Serializable {
+<span class="nc" id="L26">    private static final Logger logger = Logger.getLogger(GameMap.class.getName());</span>
+
+    int width;
+    int height;
+    Asset[][] mapMatrix;
+    Asset[][] matrix;
+<span class="nc" id="L32">    private final HashMap&lt;Coordinates, Entity&gt; entitiesMap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L33">    SpaceWarden warden = new SpaceWarden();</span>
+
+<span class="nc" id="L35">    GameMap(){</span>
+
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L41">        return &quot;Map{&quot; +</span>
+                &quot;width=&quot; + width +
+                &quot;, height=&quot; + height +
+                '}';
+    }
+
+<span class="nc" id="L47">    public GameMap(int h, int w, int x1, int y1, int x2, int y2){</span>
+<span class="nc" id="L48">        this.width = w;</span>
+<span class="nc" id="L49">        this.height = h;</span>
+<span class="nc" id="L50">        this.mapMatrix = generateMapMatrix(h,w,x1,y1,x2,y2);</span>
+<span class="nc" id="L51">        this.matrix = generateMapMatrix(h,w,x1,y1,x2,y2);</span>
+<span class="nc" id="L52">    }</span>
+<span class="nc" id="L53">    public GameMap(int h, int w){</span>
+<span class="nc" id="L54">        this.width = w;</span>
+<span class="nc" id="L55">        this.height = h;</span>
+<span class="nc" id="L56">        generateGrassMapMatrix();</span>
+<span class="nc" id="L57">    }</span>
+
+    public Asset[][] getMatrix(){
+<span class="nc" id="L60">        return matrix;</span>
+    }
+
+    public Asset getAsset(int x, int y){
+<span class="nc" id="L64">        return matrix[y][x];</span>
+    }
+
+    public void setMapMatrix(int x, int y, Asset asset){
+<span class="nc" id="L68">        mapMatrix[y][x] = asset;</span>
+<span class="nc" id="L69">    }</span>
+
+    public void setMapMatrix(Asset[][] mapMatrix) {
+<span class="nc" id="L72">        this.mapMatrix = mapMatrix;</span>
+<span class="nc" id="L73">    }</span>
+
+    public Asset[][] getMapMatrix() {
+<span class="nc" id="L76">        return mapMatrix;</span>
+    }
+
+    public void setMatrix(int x, int y, Asset asset) {
+<span class="nc" id="L80">        matrix[y][x] = asset;</span>
+<span class="nc" id="L81">    }</span>
+
+    public void setMatrix(Asset[][] matrix) {
+<span class="nc" id="L84">        this.matrix = matrix;</span>
+<span class="nc" id="L85">    }</span>
+
+    public HashMap&lt;Coordinates, Entity&gt; getEntitiesMap() {
+<span class="nc" id="L88">        return entitiesMap;</span>
+    }
+
+
+
+    public Entity getNon2DEntity(Coordinates coordinates){
+//        System.out.println(&quot;Запрошена сущность с координатами &quot; + coordinates + &quot; hashCode которых &quot; + coordinates.hashCode());
+//        System.out.println(entitiesMap);
+
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (entitiesMap.containsKey(coordinates)){</span>
+//            System.out.println(&quot;Запрос одобрен сущностью &quot; + entitiesMap.get(coordinates));
+<span class="nc" id="L99">            return entitiesMap.get(coordinates);</span>
+        }
+//        System.out.println(&quot;Запрос отклонен сущностью &quot; + entitiesMap.get(coordinates));
+<span class="nc" id="L102">        return null;</span>
+    }
+
+    public Asset[][] generateMapMatrix(int h, int w, int x1, int y1, int x2, int y2){
+<span class="nc" id="L106">        Asset[][] result = new Asset[h][w];</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        for (int i = 0; i &lt; h; i++) {</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            for (int j = 0; j &lt; w; j++){</span>
+<span class="nc" id="L109">                result[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);</span>
+<span class="nc" id="L110">                result[i][j].setX(j);</span>
+<span class="nc" id="L111">                result[i][j].setY(i);</span>
+            }
+        }
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        for (int i = x1+1; i &lt; x2; i++){</span>
+<span class="nc" id="L116">            int j = linear(i, x1,y1,x2,y2);</span>
+<span class="nc" id="L117">            Cell C = CellClassificator.createCell(CellClassificator.ROAD, null);</span>
+<span class="nc" id="L118">            result[j][i] = C;</span>
+<span class="nc" id="L119">            result[j][i].setX(i);</span>
+<span class="nc" id="L120">            result[j][i].setY(j);</span>
+        }
+
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        for (int i = 0; i &lt; h; i++){</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (i == y1){</span>
+<span class="nc" id="L125">                continue;</span>
+            }
+<span class="nc" id="L127">            Cell C = CellClassificator.createCell(CellClassificator.WALL, null);</span>
+<span class="nc" id="L128">            result[i][w/2] = C;</span>
+<span class="nc" id="L129">            result[i][w/2].setX(i);</span>
+<span class="nc" id="L130">            result[i][w/2].setY(w/2);</span>
+        }
+
+<span class="nc" id="L133">        return result;</span>
+    }
+    private void generateGrassMapMatrix(){
+<span class="nc" id="L136">        mapMatrix = new Asset[height][width];</span>
+<span class="nc" id="L137">        matrix = new Asset[height][width];</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        for (int i = 0; i &lt; height; i++){</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            for (int j = 0; j &lt; width; j++){</span>
+<span class="nc" id="L140">                mapMatrix[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);</span>
+<span class="nc" id="L141">                mapMatrix[i][j].setX(j);</span>
+<span class="nc" id="L142">                mapMatrix[i][j].setY(i);</span>
+<span class="nc" id="L143">                matrix[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);</span>
+<span class="nc" id="L144">                matrix[i][j].setX(j);</span>
+<span class="nc" id="L145">                matrix[i][j].setY(i);</span>
+            }
+        }
+
+<span class="nc" id="L149">    }</span>
+    public void surroundPointWithFriendlyGrass(int x, int y, double radius, Player owner){
+<span class="nc" id="L151">        Coordinates center = new Coordinates();</span>
+<span class="nc" id="L152">        center = center.withComponent(1, x).withComponent(2, y);</span>
+<span class="nc" id="L153">        mapMatrix[y][x].setCoordinates(center);</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        for (int i = (int) (-radius); i &lt;= radius; i++){</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            for (int j = (int) (-radius); j &lt;= radius; j++){</span>
+<span class="nc" id="L156">                Coordinates coords = new Coordinates();</span>
+<span class="nc" id="L157">                coords = coords.withComponent(1, x+j).withComponent(2, y+i);</span>
+
+<span class="nc bnc" id="L159" title="All 2 branches missed.">                if (!Coordinates.isOutOfBounds(coords, this)) {</span>
+                    //System.out.print(&quot;Координаты центра &quot; + x + &quot; &quot; + y + &quot;. Клетка с координатами &quot; + coords + &quot; &quot;);
+<span class="nc bnc" id="L161" title="All 6 branches missed.">                    if (Locator.distance(mapMatrix[y + i][x + j], mapMatrix[y][x]) &lt;= radius &amp;&amp; mapMatrix[y+i][x+j] instanceof Cell &amp;&amp; ((Cell) mapMatrix[y + i][x + j]).getCellType().equals(&quot;GRASS&quot;)) {</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                        if (mapMatrix[y+i][x+j] instanceof Castle){</span>
+<span class="nc" id="L163">                            continue;</span>
+                        }
+<span class="nc bnc" id="L165" title="All 4 branches missed.">                        if (mapMatrix[y+i][x+j] instanceof Cell &amp;&amp; ((Cell) mapMatrix[y + i][x + j]).getCellType().equals(&quot;ROAD&quot;)){</span>
+<span class="nc" id="L166">                            continue;</span>
+                        }
+<span class="nc" id="L168">                        Cell newCell = CellClassificator.createCellByName(&quot;GRASS&quot;, owner);</span>
+<span class="nc" id="L169">                        newCell.setX(x+j);</span>
+<span class="nc" id="L170">                        newCell.setY(y+i);</span>
+<span class="nc" id="L171">                        mapMatrix[y + i][x + j] = newCell;</span>
+                        //System.out.println(&quot;Заменена на &quot; + newCell);
+
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                        if (!(matrix[y+i][x+j] instanceof Entity)) {</span>
+<span class="nc" id="L175">                            matrix[y+i][x+j] = mapMatrix[y+i][x+j];</span>
+                        }
+                    }
+                } else{
+                    //System.out.println(&quot;out of bounds cell&quot;);
+                }
+            }
+        }
+<span class="nc" id="L183">    }</span>
+
+    int linear(int x, int x1, int y1, int x2, int y2){
+<span class="nc" id="L186">        double k = (double) (y2 - y1) /(x2-x1);</span>
+<span class="nc" id="L187">        double b = y1 - k*x1;</span>
+<span class="nc" id="L188">        return (int) ceil(k*x + b);</span>
+    }
+
+    public int getWidth(){
+<span class="nc" id="L192">        return this.width;</span>
+    }
+    public int getHeight(){
+<span class="nc" id="L195">        return this.height;</span>
+    }
+
+
+    public void render(){
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        for (int i = 0; i &lt; this.getHeight(); i++){</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">            for (int j = 0; j &lt; this.getWidth(); j++){</span>
+<span class="nc" id="L202">                System.out.print(this.matrix[i][j].render() + &quot; &quot;);</span>
+            }
+<span class="nc" id="L204">            System.out.println(' ');</span>
+        }
+<span class="nc" id="L206">    }</span>
+
+    public void increlocate(Asset asset, int dx, int dy){
+<span class="nc" id="L209">        relocate(asset, new Coordinates().withComponent(1, asset.getX()+dx).withComponent(2, asset.getY()+dy));</span>
+<span class="nc" id="L210">    }</span>
+
+    public void relocate(Asset asset, Coordinates coordinates){
+<span class="nc" id="L213">        Coordinates oldCoords = asset.getCoordinates();</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (asset instanceof Entity){</span>
+<span class="nc" id="L215">            entityRelocationHandler((Entity) asset, coordinates);</span>
+        }
+        // Работаем с картой сущностей
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (asset instanceof Entity entity) {</span>
+<span class="nc bnc" id="L219" title="All 4 branches missed.">            if (entity.getCoordinates().isNormally2D() &amp;&amp; !coordinates.isNormally2D()){</span>
+<span class="nc" id="L220">                removeEntity(entity);</span>
+            }
+<span class="nc" id="L222">            entitiesMap.remove(entity.getCoordinates(), entity);</span>
+            //System.out.println(&quot;Кладём в enttitesMap &quot; + coordinates + &quot; &quot; + entity + &quot;, entitiesMap до: &quot; + entitiesMap);
+<span class="nc" id="L224">            entitiesMap.put(coordinates, entity);</span>
+            //System.out.println(&quot;entitiesMap после: &quot; + entitiesMap);
+            // Обновление координат в самом ассете
+<span class="nc" id="L227">            entity.setCoordinates(coordinates);</span>
+        }
+
+        // Работаем с основной матрицей, т.к. ассет перемещается в неё
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        if (coordinates.isNormally2D()){</span>
+<span class="nc" id="L232">            int newX = coordinates.getX();</span>
+<span class="nc" id="L233">            int newY = coordinates.getY();</span>
+<span class="nc" id="L234">            matrix[newY][newX] =  asset;</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">            if (oldCoords.isNormally2D()){</span>
+<span class="nc" id="L236">                int x = oldCoords.getX();</span>
+<span class="nc" id="L237">                int y = oldCoords.getY();</span>
+<span class="nc" id="L238">                matrix[y][x] = mapMatrix[y][x];</span>
+            }
+        }
+<span class="nc" id="L241">    }</span>
+
+
+    private void entityRelocationHandler(Entity entity, Coordinates coordinates){
+<span class="nc" id="L245">        warden.judge(entity, coordinates);</span>
+<span class="nc" id="L246">    }</span>
+
+    public void loadEntity(Asset asset, int x, int y){
+<span class="nc" id="L249">        matrix[y][x] = asset;</span>
+<span class="nc" id="L250">        asset.setX(x);</span>
+<span class="nc" id="L251">        asset.setY(y);</span>
+<span class="nc" id="L252">        asset.setMap(this);</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">        if (asset instanceof Entity) {</span>
+<span class="nc" id="L254">            entitiesMap.put(asset.getCoordinates(), (Entity) asset);</span>
+        }
+<span class="nc" id="L256">    }</span>
+
+    public SpaceWarden getWarden() {
+<span class="nc" id="L259">        return warden;</span>
+    }
+
+    public void loadEntity(Asset asset, Coordinates coordinates){
+<span class="nc bnc" id="L263" title="All 2 branches missed.">        if (coordinates.isNormally2D()){</span>
+<span class="nc" id="L264">            int x = coordinates.getX();</span>
+<span class="nc" id="L265">            int y = coordinates.getY();</span>
+<span class="nc" id="L266">            matrix[y][x] = asset;</span>
+<span class="nc" id="L267">            asset.setX(x);</span>
+<span class="nc" id="L268">            asset.setY(y);</span>
+        }
+<span class="nc" id="L270">        asset.setMap(this);</span>
+<span class="nc bnc" id="L271" title="All 2 branches missed.">        if (asset instanceof Entity) {</span>
+<span class="nc" id="L272">            entitiesMap.put(asset.getCoordinates(), (Entity) asset);</span>
+        }
+<span class="nc" id="L274">    }</span>
+
+    public void removeEntity(Asset entity){
+<span class="nc" id="L277">        matrix[entity.getY()][entity.getX()] = mapMatrix[entity.getY()][entity.getX()];</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">        if (entity instanceof Entity){</span>
+<span class="nc" id="L279">            entitiesMap.remove(entity.getCoordinates());</span>
+        }
+<span class="nc" id="L281">    }</span>
+
+    public void spawn(Entity entity){
+<span class="nc" id="L284">        int x = entity.getOwner().getCastle().getX();</span>
+<span class="nc" id="L285">        int y = entity.getOwner().getCastle().getY();</span>
+<span class="nc" id="L286">        int j = 1;</span>
+<span class="nc bnc" id="L287" title="All 2 branches missed.">        for (int i = 1; i&lt;=height/2; i++){</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">            if (matrix[y+j][x] instanceof Entity){</span>
+<span class="nc" id="L289">                j=-i;</span>
+<span class="nc" id="L290">                continue;</span>
+            }
+<span class="nc" id="L292">            loadEntity(entity, x, y+j);</span>
+<span class="nc" id="L293">            return;</span>
+        }
+<span class="nc" id="L295">        return;</span>
+    }
+
+    public ArrayList&lt;Entity&gt; findEntities(Predicate&lt;Coordinates&gt; condition) {
+<span class="nc" id="L299">        return (ArrayList&lt;Entity&gt;) entitiesMap.entrySet().stream()</span>
+<span class="nc" id="L300">                .filter(entry -&gt; condition.test(entry.getKey()))</span>
+<span class="nc" id="L301">                .map(Map.Entry::getValue)</span>
+<span class="nc" id="L302">                .collect(Collectors.toList());</span>
+    }
+
+    // Сохранение карты в файл
+    public void saveToFile(String filename) {
+<span class="nc" id="L307">        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {</span>
+<span class="nc" id="L308">            oos.writeObject(this);</span>
+<span class="nc" id="L309">            logger.log(Level.INFO, &quot;Карта успешно сохранена в файл: {0}&quot;, filename);</span>
+<span class="nc" id="L310">        } catch (IOException e) {</span>
+<span class="nc" id="L311">            logger.log(Level.SEVERE, &quot;Ошибка сохранения карты в файл: &quot; + filename, e);</span>
+<span class="nc" id="L312">        }</span>
+<span class="nc" id="L313">    }</span>
+
+    // Загрузка карты из файла
+    public static GameMap loadFromFile(String filename) {
+<span class="nc" id="L317">        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {</span>
+<span class="nc" id="L318">            GameMap loadedMap = (GameMap) ois.readObject();</span>
+<span class="nc" id="L319">            logger.log(Level.INFO, &quot;Карта успешно загружена из файла: {0}&quot;, filename);</span>
+<span class="nc" id="L320">            return loadedMap;</span>
+<span class="nc" id="L321">        } catch (IOException | ClassNotFoundException e) {</span>
+<span class="nc" id="L322">            logger.log(Level.SEVERE, &quot;Ошибка загрузки карты из файла: &quot; + filename, e);</span>
+<span class="nc" id="L323">            return null;</span>
+        }
+    }
+
+    // Восстановление transient-полей после десериализации
+    @Serial
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+<span class="nc" id="L330">        ois.defaultReadObject();</span>
+<span class="nc" id="L331">    }</span>
+
+
+    // Установка клетки по координатам
+    public void setTile(int x, int y, Cell cell) {
+<span class="nc bnc" id="L336" title="All 2 branches missed.">        if (isValidCoordinates(x, y)) {</span>
+<span class="nc" id="L337">            mapMatrix[y][x] = cell;</span>
+<span class="nc" id="L338">            mapMatrix[y][x].setY(y);</span>
+<span class="nc" id="L339">            mapMatrix[y][x].setX(x);</span>
+<span class="nc" id="L340">            matrix[y][x] = cell;</span>
+<span class="nc" id="L341">            matrix[y][x].setY(y);</span>
+<span class="nc" id="L342">            matrix[y][x].setX(x);</span>
+        } else {
+<span class="nc" id="L344">            System.out.println(&quot;Некорректные координаты!&quot;);</span>
+        }
+<span class="nc" id="L346">    }</span>
+
+    // Проверка координат
+    private boolean isValidCoordinates(int x, int y) {
+<span class="nc bnc" id="L350" title="All 8 branches missed.">        return x &gt;= 0 &amp;&amp; x &lt; width &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; height;</span>
+    }
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

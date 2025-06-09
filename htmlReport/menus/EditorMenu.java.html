@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EditorMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">menus</a> &gt; <span class="el_source">EditorMenu.java</span></div><h1>EditorMenu.java</h1><pre class="source lang-java linenums">package menus;
+import map.GameMap;
+import misc.MapEditor;
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
+<span class="nc" id="L10">public class EditorMenu {</span>
+<span class="nc" id="L11">    private static final Logger logger = Logger.getLogger(EditorMenu.class.getName());</span>
+    private static final String MAPS_DIR = &quot;maps&quot;;
+<span class="nc" id="L13">    private Scanner scanner = new Scanner(System.in);</span>
+
+    public void run() {
+        // Создаем папку maps, если она не существует
+        try {
+<span class="nc" id="L18">            Files.createDirectories(Paths.get(MAPS_DIR));</span>
+<span class="nc" id="L19">        } catch (IOException e) {</span>
+<span class="nc" id="L20">            logger.severe(&quot;Ошибка создания папки maps: &quot; + e.getMessage());</span>
+<span class="nc" id="L21">        }</span>
+
+        while (true) {
+<span class="nc" id="L24">            System.out.println(&quot;\n=== Меню редактора карт ===&quot;);</span>
+<span class="nc" id="L25">            System.out.println(&quot;1. Создать новую карту&quot;);</span>
+<span class="nc" id="L26">            System.out.println(&quot;2. Загрузить существующую карту&quot;);</span>
+<span class="nc" id="L27">            System.out.println(&quot;3. Сохранить текущую карту&quot;);</span>
+<span class="nc" id="L28">            System.out.println(&quot;4. Редактировать карту&quot;);</span>
+<span class="nc" id="L29">            System.out.println(&quot;5. Выход&quot;);</span>
+<span class="nc" id="L30">            System.out.print(&quot;Выберите действие: &quot;);</span>
+
+<span class="nc" id="L32">            String choice = scanner.nextLine().trim();</span>
+
+<span class="nc bnc" id="L34" title="All 6 branches missed.">            switch (choice) {</span>
+                case &quot;1&quot;:
+<span class="nc" id="L36">                    createNewMap();</span>
+<span class="nc" id="L37">                    break;</span>
+                case &quot;2&quot;:
+<span class="nc" id="L39">                    loadMap();</span>
+<span class="nc" id="L40">                    break;</span>
+                case &quot;3&quot;:
+<span class="nc" id="L42">                    saveMap();</span>
+<span class="nc" id="L43">                    break;</span>
+                case &quot;4&quot;:
+<span class="nc" id="L45">                    editMap();</span>
+<span class="nc" id="L46">                    break;</span>
+                case &quot;5&quot;:
+<span class="nc" id="L48">                    System.out.println(&quot;Выход из редактора карт.&quot;);</span>
+<span class="nc" id="L49">                    return;</span>
+                default:
+<span class="nc" id="L51">                    System.out.println(&quot;Неверный выбор. Попробуйте снова.&quot;);</span>
+            }
+<span class="nc" id="L53">        }</span>
+    }
+
+    private void createNewMap() {
+        try {
+<span class="nc" id="L58">            System.out.print(&quot;Введите ширину карты: &quot;);</span>
+<span class="nc" id="L59">            int width = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L60">            System.out.print(&quot;Введите высоту карты: &quot;);</span>
+<span class="nc" id="L61">            int height = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L62">            GameMap newMap = new GameMap(width, height);</span>
+<span class="nc" id="L63">            System.out.println(&quot;Новая карта создана.&quot;);</span>
+<span class="nc" id="L64">            this.map = newMap;</span>
+<span class="nc" id="L65">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L66">            System.out.println(&quot;Ошибка: введены некорректные размеры карты.&quot;);</span>
+<span class="nc" id="L67">        }</span>
+<span class="nc" id="L68">    }</span>
+
+    private void loadMap() {
+<span class="nc" id="L71">        System.out.print(&quot;Введите имя файла для загрузки (без расширения): &quot;);</span>
+<span class="nc" id="L72">        String filename = scanner.nextLine();</span>
+<span class="nc" id="L73">        String path = MAPS_DIR + &quot;/&quot; + filename + &quot;.dat&quot;;</span>
+
+        try {
+<span class="nc" id="L76">            GameMap loadedMap = GameMap.loadFromFile(path);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            if (loadedMap != null) {</span>
+<span class="nc" id="L78">                System.out.println(&quot;Карта успешно загружена.&quot;);</span>
+<span class="nc" id="L79">                this.map = loadedMap;</span>
+            }
+<span class="nc" id="L81">        } catch (Exception e) {</span>
+<span class="nc" id="L82">            logger.severe(&quot;Ошибка загрузки карты: &quot; + e.getMessage());</span>
+<span class="nc" id="L83">        }</span>
+<span class="nc" id="L84">    }</span>
+
+    private void saveMap() {
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L88">            System.out.println(&quot;Нет загруженной карты для сохранения.&quot;);</span>
+<span class="nc" id="L89">            return;</span>
+        }
+
+<span class="nc" id="L92">        System.out.print(&quot;Введите имя файла для сохранения (без расширения): &quot;);</span>
+<span class="nc" id="L93">        String filename = scanner.nextLine();</span>
+<span class="nc" id="L94">        String path = MAPS_DIR + &quot;/&quot; + filename + &quot;.dat&quot;;</span>
+
+        try {
+<span class="nc" id="L97">            map.saveToFile(path);</span>
+<span class="nc" id="L98">            System.out.println(&quot;Карта сохранена в файл: &quot; + path);</span>
+<span class="nc" id="L99">        } catch (Exception e) {</span>
+<span class="nc" id="L100">            logger.severe(&quot;Ошибка сохранения карты: &quot; + e.getMessage());</span>
+<span class="nc" id="L101">        }</span>
+<span class="nc" id="L102">    }</span>
+
+    private void editMap() {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (map == null) {</span>
+<span class="nc" id="L106">            System.out.println(&quot;Сначала загрузите или создайте карту.&quot;);</span>
+<span class="nc" id="L107">            return;</span>
+        }
+
+<span class="nc" id="L110">        new MapEditor(map).run();</span>
+<span class="nc" id="L111">    }</span>
+
+    private GameMap map; // Текущая карта
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

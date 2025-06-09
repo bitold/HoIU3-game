@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Coordinates.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">misc</a> &gt; <span class="el_source">Coordinates.java</span></div><h1>Coordinates.java</h1><pre class="source lang-java linenums">package misc;
+
+import map.GameMap;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.lang.Math.*;
+
+public class Coordinates implements Serializable {
+    private final Map&lt;Integer, Integer&gt; coordinates;
+
+<span class="nc" id="L14">    public Coordinates() {</span>
+<span class="nc" id="L15">        this.coordinates = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L16">    }</span>
+
+<span class="nc" id="L18">    public Coordinates(Map&lt;Integer, Integer&gt; coords) {</span>
+<span class="nc" id="L19">        this.coordinates = new HashMap&lt;&gt;(coords);</span>
+<span class="nc" id="L20">    }</span>
+
+
+    private void put(int dimension, int value) {
+<span class="nc bnc" id="L24" title="All 6 branches missed.">        if (value == 0 &amp;&amp; dimension!=1 &amp;&amp; dimension!=2){</span>
+<span class="nc" id="L25">            coordinates.remove(dimension);</span>
+<span class="nc" id="L26">            return;</span>
+        }
+<span class="nc" id="L28">        coordinates.put(dimension, value);</span>
+<span class="nc" id="L29">    }</span>
+
+    // Метод для получения компоненты (0, если отсутствует)
+    public int get(int dimension) {
+<span class="nc" id="L33">        return coordinates.getOrDefault(dimension, 0);</span>
+    }
+
+
+    public Coordinates add(Coordinates other) {
+<span class="nc" id="L38">        Coordinates result = new Coordinates();</span>
+<span class="nc" id="L39">        Set&lt;Integer&gt; allDimensions = new HashSet&lt;&gt;(this.coordinates.keySet());</span>
+<span class="nc" id="L40">        allDimensions.addAll(other.coordinates.keySet());</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (int dim : allDimensions) {</span>
+<span class="nc" id="L43">            int sum = this.get(dim) + other.get(dim);</span>
+<span class="nc" id="L44">            result.put(dim, sum);</span>
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">        return result;</span>
+    }
+
+    public static Coordinates negative(Coordinates coords){
+<span class="nc" id="L50">        Map&lt;Integer, Integer&gt; inverted = coords.getCoordinates().entrySet().stream()</span>
+<span class="nc" id="L51">                .collect(Collectors.toMap(</span>
+                        Map.Entry::getKey,
+<span class="nc" id="L53">                        entry -&gt; -entry.getValue()</span>
+                ));
+<span class="nc" id="L55">        return new Coordinates(inverted);</span>
+    }
+
+    public Coordinates subtract(Coordinates other){
+<span class="nc" id="L59">        return this.add(negative(other));</span>
+    }
+
+    /**
+     * Проективное отображение.
+     * @param input
+     * @param axis
+     * @return
+     */
+    public static Coordinates project(Coordinates input, int axis){
+<span class="nc" id="L69">        Coordinates result = new Coordinates();</span>
+<span class="nc" id="L70">        result = result.withComponent(axis, input.get(axis));</span>
+<span class="nc" id="L71">        return result;</span>
+    }
+
+    public static double norm(Coordinates input){
+<span class="nc" id="L75">        Coordinates c = input.clearOfZeros(true);</span>
+<span class="nc" id="L76">        double result = 0;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (int i: c.getCoordinates().keySet()){</span>
+<span class="nc" id="L78">            result+=pow(c.get(i),2);</span>
+<span class="nc" id="L79">        }</span>
+<span class="nc" id="L80">        return pow(result, 0.5);</span>
+    }
+
+    public Coordinates wholeDivide(int div){
+<span class="nc" id="L84">        Coordinates result = this;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (int i: this.getAxi()){</span>
+<span class="nc" id="L86">            result = result.withComponent(i, this.get(i)/div);</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">        return result;</span>
+    }
+
+    public static Coordinates integerNormalization(Coordinates input){
+<span class="nc" id="L92">        return input.wholeDivide((int) round(norm(input)));</span>
+    }
+    /**
+     * Очищает HashMap координат от нулевых составляющих.
+     * @param strict определяет, очищать ли классические координаты x, y если они нулевые.
+     * @return
+     */
+    public Coordinates clearOfZeros(boolean strict){
+<span class="nc" id="L100">        Map&lt;Integer, Integer&gt; clean = this.getCoordinates().entrySet().stream()</span>
+<span class="nc bnc" id="L101" title="All 8 branches missed.">                .filter(entry -&gt; ((!strict) &amp;&amp; (entry.getKey() == 1 || entry.getKey() == 2) || entry.getValue()!=0))</span>
+<span class="nc" id="L102">                .collect(Collectors.toMap(</span>
+                        Map.Entry::getKey,
+                        Map.Entry::getValue
+                ));
+<span class="nc" id="L106">        return new Coordinates(clean);</span>
+    }
+
+
+    public Set&lt;Integer&gt; getAxi(){
+<span class="nc" id="L111">        return this.clearOfZeros(true).getCoordinates().keySet();</span>
+    }
+
+    /**
+     * Возвращает вектор со значением value у компоненты dimension.
+     * @param dimension
+     * @param value
+     * @return
+     */
+    public Coordinates withComponent(int dimension, int value) {
+<span class="nc" id="L121">        Map&lt;Integer, Integer&gt; newCoords = new HashMap&lt;&gt;(this.coordinates);</span>
+<span class="nc" id="L122">        newCoords.put(dimension, value);</span>
+<span class="nc" id="L123">        return new Coordinates(newCoords);</span>
+    }
+
+    public static Coordinates createUnitVector(int dimension, boolean positive) {
+<span class="nc" id="L127">        Coordinates vector = new Coordinates();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        vector.put(dimension, positive ? 1 : -1);</span>
+<span class="nc" id="L129">        return vector;</span>
+    }
+
+    public static Coordinates createPositiveUnit(int dimension) {
+<span class="nc" id="L133">        return createUnitVector(dimension, true);</span>
+    }
+
+    public static Coordinates createNegativeUnit(int dimension) {
+<span class="nc" id="L137">        return createUnitVector(dimension, false);</span>
+    }
+
+    public static Coordinates boundaryLoop(Coordinates oldcoords, Coordinates newcoords, GameMap map) throws IllegalArgumentException {
+<span class="nc bnc" id="L141" title="All 2 branches missed.">        if (!isOutOfBounds(newcoords, map)){</span>
+<span class="nc" id="L142">            throw new IllegalArgumentException(&quot;Invalid boundaryLoop call. Coordinates are in bounds.&quot;);</span>
+        }
+<span class="nc" id="L144">        int changedDim = abs(changedDimensionSignedNumber(oldcoords, newcoords));</span>
+<span class="nc" id="L145">        Coordinates result = new Coordinates(</span>
+<span class="nc" id="L146">                newcoords.clearOfZeros(false).getCoordinates().entrySet().stream().collect(Collectors.toMap(</span>
+                                Map.Entry::getKey,
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                                entry -&gt; (compare(entry.getKey(), changedDim)) ? getOpposite(entry.getValue(), changedDim, map) : entry.getValue()</span>
+                        )
+                ));
+<span class="nc" id="L151">        return result;</span>
+    }
+    static boolean compare(int a, int b){
+        //System.out.println(&quot;Сравниваю ключ &quot; + a + &quot; с измененным измерением &quot; + b);
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        return a==b;</span>
+    }
+
+    static int getOpposite(int value, int dimension, GameMap map){
+<span class="nc" id="L159">        System.out.println(&quot;Запрос противоположной координаты для координаты в измерении &quot; + dimension + &quot; со значением &quot; + value);</span>
+<span class="nc" id="L160">        int h = map.getHeight();</span>
+<span class="nc" id="L161">        int w = map.getWidth();</span>
+<span class="nc bnc" id="L162" title="All 3 branches missed.">        int result = switch (abs(dimension)) {</span>
+<span class="nc" id="L163">            case 1 -&gt; (value+w) % w;</span>
+<span class="nc" id="L164">            case 2 -&gt; (value+h) % h;</span>
+<span class="nc" id="L165">            default -&gt; -value+(int)signum(value);</span>
+<span class="nc" id="L166">        };</span>
+<span class="nc" id="L167">        System.out.println(&quot;Противополжная координата - &quot; + result);</span>
+<span class="nc" id="L168">        return result;</span>
+    }
+    static int changedDimensionSignedNumber(Coordinates oldcoords, Coordinates newcoords){
+<span class="nc" id="L171">        Coordinates difference = newcoords.add(negative(oldcoords)).clearOfZeros(true);</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (difference.getCoordinates().keySet().size()!=1){</span>
+<span class="nc" id="L173">            return 0;</span>
+        }
+<span class="nc" id="L175">        return difference.getCoordinates().keySet().stream().collect(Collectors.toList()).get(0);</span>
+    }
+
+    public static boolean isOutOfBounds(Coordinates coordinates, GameMap map){
+<span class="nc" id="L179">        int size = max(map.getHeight(), map.getWidth());</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        if (coordinates.isNormally2D()){</span>
+<span class="nc" id="L181">            return basic2DOutOfBounds(coordinates, map);</span>
+        }
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        for (int dim: coordinates.getCoordinates().keySet()){</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (elementaryOutOfBoundsPredicate(dim, coordinates.getCoordinates().get(dim), size)){</span>
+<span class="nc" id="L185">                return true;</span>
+            }
+<span class="nc" id="L187">        }</span>
+
+<span class="nc" id="L189">        return false;</span>
+    }
+    static boolean elementaryOutOfBoundsPredicate(int dim, int coordinate, int size){
+<span class="nc bnc" id="L192" title="All 4 branches missed.">        if (dim == 1 || dim == 2){</span>
+<span class="nc bnc" id="L193" title="All 4 branches missed.">            return (coordinate &gt;= size || coordinate &lt; 0);</span>
+        }
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        return (abs(coordinate) &gt; size/2);</span>
+    }
+
+    static boolean basic2DOutOfBounds(Coordinates coordinates, GameMap map){
+<span class="nc bnc" id="L199" title="All 8 branches missed.">        return  (coordinates.getX() &gt;= map.getWidth() || coordinates.getY() &gt;= map.getHeight() || coordinates.getX() &lt; 0 || coordinates.getY() &lt; 0);</span>
+    }
+
+    public int getX() {
+<span class="nc" id="L203">        return get(1);</span>
+    }
+
+    public int getY() {
+<span class="nc" id="L207">        return get(2);</span>
+    }
+
+    public Coordinates withSetX(int x){
+<span class="nc" id="L211">        return this.withComponent(1, x);</span>
+    }
+    public Coordinates withSetY(int y){
+<span class="nc" id="L214">        return this.withComponent(2, y);</span>
+    }
+
+    public Map&lt;Integer, Integer&gt; getCoordinates() {
+<span class="nc" id="L218">        return coordinates;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L223">        return &quot;[&quot; + coordinates + &quot;]&quot;;</span>
+    }
+
+    public boolean isNormally2D(){
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        for (int dimension: coordinates.keySet()){</span>
+<span class="nc bnc" id="L228" title="All 6 branches missed.">            if (dimension != 1 &amp;&amp; dimension != 2 &amp;&amp; coordinates.get(dimension) != 0){</span>
+<span class="nc" id="L229">                return false;</span>
+            }
+<span class="nc" id="L231">        }</span>
+<span class="nc" id="L232">        return true;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (this == obj) return true;</span>
+<span class="nc bnc" id="L238" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) return false;</span>
+<span class="nc" id="L239">        Coordinates other = ((Coordinates) obj).clearOfZeros(true);</span>
+
+<span class="nc" id="L241">        return Objects.equals(this.clearOfZeros(true).coordinates, other.coordinates);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L246">        return Objects.hashCode(coordinates);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

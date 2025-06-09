@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BuyingMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">menus</a> &gt; <span class="el_source">BuyingMenu.java</span></div><h1>BuyingMenu.java</h1><pre class="source lang-java linenums">package menus;
+
+import asset.Hero;
+import castle.Castle;
+import castle.CastleUI;
+import classification.ShopBuildingClassificator;
+import classification.UnitClassificator;
+import org.w3c.dom.ls.LSInput;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class BuyingMenu implements Serializable {
+    Castle castle;
+    CastleUI castleUI;
+<span class="nc" id="L20">    transient private Scanner scanner = new Scanner(System.in);</span>
+
+<span class="nc" id="L22">    public BuyingMenu(Castle castle, CastleUI castleUI){</span>
+<span class="nc" id="L23">        this.castle=castle;</span>
+<span class="nc" id="L24">        this.castleUI=castleUI;</span>
+<span class="nc" id="L25">    }</span>
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+<span class="nc" id="L28">        ois.defaultReadObject();</span>
+<span class="nc" id="L29">        this.scanner = new Scanner(System.in);</span>
+<span class="nc" id="L30">    }</span>
+
+    public void setScanner(Scanner scanner) {
+<span class="nc" id="L33">        this.scanner = scanner;</span>
+<span class="nc" id="L34">    }</span>
+
+    public void printNotEnoughGold(){
+<span class="nc" id="L37">        System.out.println(&quot;НЕ ХВАТАЕТ ЗОЛОТА.&quot;);</span>
+<span class="nc" id="L38">    }</span>
+
+    public void printNoRequiredBuilding(){
+<span class="nc" id="L41">        System.out.println(&quot;НЕТ НЕОБХОДИМОГО СТРОЕНИЯ.&quot;);</span>
+<span class="nc" id="L42">    }</span>
+
+    public void printUnitBought(UnitClassificator unit){
+<span class="nc" id="L45">        System.out.println(&quot;Приобретён юнит &quot;+unit.getName()+&quot; для героя &quot; + castleUI.getHero() +</span>
+<span class="nc" id="L46">                &quot;. Баланс игрока: &quot; + castle.getOwner().getGold());</span>
+<span class="nc" id="L47">    }</span>
+
+    public void printBuildingBought(ShopBuildingClassificator building){
+<span class="nc" id="L50">        System.out.println(&quot;Приобретено строение &quot; + building.getName()+</span>
+<span class="nc" id="L51">                &quot;. Баланс игрока: &quot; + castle.getOwner().getGold());</span>
+<span class="nc" id="L52">    }</span>
+
+    void printItemList(){
+<span class="nc" id="L55">        System.out.println(&quot;Доступные к покупке строения: &quot;);</span>
+<span class="nc" id="L56">        int i = 0;</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        for (ShopBuildingClassificator building : ShopBuildingClassificator.values()) {</span>
+<span class="nc" id="L58">            System.out.println(i+1 + &quot;. &quot; + building.getName() + &quot;, Цена: &quot; + building.getCost());</span>
+<span class="nc" id="L59">            i++;</span>
+        }
+<span class="nc" id="L61">        i = 0;</span>
+
+<span class="nc" id="L63">        System.out.println(&quot;Доступные к покупке юниты: &quot;);</span>
+
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        for (UnitClassificator unit : UnitClassificator.values()) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (castleUI.checkUnitAvailability(unit)) {</span>
+<span class="nc" id="L67">                System.out.println(i + 1 + &quot;. &quot; + unit.getName() + &quot;, Цена: &quot; + unit.getCost());</span>
+            }
+<span class="nc" id="L69">            i++;</span>
+        }
+<span class="nc" id="L71">        i = 0;</span>
+<span class="nc" id="L72">    }</span>
+
+    public void engageShopMenu(){
+<span class="nc" id="L75">        System.out.println(&quot;Вы в магазине замка. Выберите действие: \n&quot; +</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                &quot;1. Купить строение      2. Купить юнита      3. Выйти из замка&quot; + (castle.isBuilt(&quot;Таверна&quot;) ? &quot;    4. Нанять героя (100 монет)&quot; : &quot;&quot;));</span>
+<span class="nc" id="L77">        String input = scanner.nextLine();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        while (processShopMainMenuInput(input)){</span>
+<span class="nc" id="L79">            System.out.println(&quot;Вы в магазине замка. Выберите действие: \n&quot; +</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                    &quot;1. Купить строение      2. Купить юнита      3. Выйти из замка&quot; + (castle.isBuilt(&quot;Таверна&quot;) ? &quot;    4. Нанять героя (100 монет)&quot; : &quot;&quot;));</span>
+<span class="nc" id="L81">            input = scanner.nextLine();</span>
+        }
+<span class="nc" id="L83">    }</span>
+
+    boolean processShopMainMenuInput(String input){
+        int num;
+        try {
+<span class="nc" id="L88">            num = Integer.parseInt(input);</span>
+<span class="nc" id="L89">        } catch (Exception e){</span>
+<span class="nc" id="L90">            System.out.println(&quot;Ошибка. Попробуйте снова.&quot;);</span>
+<span class="nc" id="L91">            return true;</span>
+<span class="nc" id="L92">        }</span>
+<span class="nc bnc" id="L93" title="All 5 branches missed.">        switch (num){</span>
+            case 1:
+<span class="nc" id="L95">                System.out.println(&quot;Перезод к покупке строения&quot;);</span>
+<span class="nc" id="L96">                engageBuildingPurchase();</span>
+<span class="nc" id="L97">                return true;</span>
+            case 2:
+<span class="nc" id="L99">                engageUnitPurchase();</span>
+<span class="nc" id="L100">                return true;</span>
+            case 3:
+<span class="nc" id="L102">                return false;</span>
+            case 4:
+<span class="nc" id="L104">                engageHeroPurchase();</span>
+<span class="nc" id="L105">                return true;</span>
+            default:
+<span class="nc" id="L107">                System.out.println(&quot;Ошибка. Попробуйте снова.&quot;);</span>
+        }
+<span class="nc" id="L109">        return true;</span>
+    }
+    void engageHeroPurchase(){
+<span class="nc" id="L112">        Hero hero = new Hero(0,0, &quot;Δ&quot;,10,100,50,1, castle.getOwner());</span>
+<span class="nc" id="L113">        castleUI.buyHero(hero);</span>
+
+<span class="nc" id="L115">    }</span>
+
+    public void printHeroBought(){
+<span class="nc" id="L118">        System.out.println(&quot;Нанят новый герой. &quot;);</span>
+<span class="nc" id="L119">    }</span>
+
+
+    void engageBuildingPurchase(){
+<span class="nc" id="L123">        System.out.println(&quot;Введите номер строения из списка:&quot;);</span>
+<span class="nc" id="L124">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L125">        printItemList();</span>
+<span class="nc" id="L126">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L127">        System.out.println(&quot;Введите номер строения из списка.&quot;);</span>
+<span class="nc" id="L128">        String input = scanner.nextLine();</span>
+        ShopBuildingClassificator building;
+<span class="nc" id="L130">        int num = integerInputHandler(input);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (num &lt; 0){</span>
+<span class="nc" id="L132">            return;</span>
+        }
+        try {
+<span class="nc" id="L135">            building = castleUI.getBuildings().get(num-1);</span>
+<span class="nc" id="L136">        } catch (Exception e) {</span>
+<span class="nc" id="L137">            System.out.println(&quot;Введён неверный номер.&quot;);</span>
+<span class="nc" id="L138">            return;</span>
+<span class="nc" id="L139">        }</span>
+<span class="nc" id="L140">        System.out.println(&quot;Производится покупка строения...&quot;);</span>
+<span class="nc" id="L141">        castleUI.buyBuilding(building);</span>
+<span class="nc" id="L142">    }</span>
+
+    void engageUnitPurchase(){
+<span class="nc" id="L145">        System.out.println(&quot;Введите номер юнита из списка:&quot;);</span>
+<span class="nc" id="L146">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L147">        printItemList();</span>
+<span class="nc" id="L148">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L149">        System.out.println(&quot;Введите номер юнита из списка.&quot;);</span>
+<span class="nc" id="L150">        String input = scanner.nextLine();</span>
+        UnitClassificator unit;
+<span class="nc" id="L152">        int num = integerInputHandler(input);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (num &lt; 0){</span>
+<span class="nc" id="L154">            return;</span>
+        }
+        try {
+<span class="nc" id="L157">            unit = castleUI.getUnits().get(num-1);</span>
+<span class="nc" id="L158">        } catch (Exception e) {</span>
+<span class="nc" id="L159">            System.out.println(&quot;Введён неверный номер.&quot;);</span>
+<span class="nc" id="L160">            return;</span>
+<span class="nc" id="L161">        }</span>
+
+<span class="nc" id="L163">        System.out.println(&quot;Введите номер героя, который получит юнита &quot; + unit + &quot;:&quot;);</span>
+<span class="nc" id="L164">        printHeroesForUnitBuy();</span>
+<span class="nc" id="L165">        input = scanner.nextLine();</span>
+<span class="nc" id="L166">        num = integerInputHandler(input);</span>
+        Hero hero;
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if (num &lt; 0){</span>
+<span class="nc" id="L169">            return;</span>
+        }
+        try {
+<span class="nc" id="L172">            hero = castle.getOwner().getHeroes().get(num-1);</span>
+<span class="nc" id="L173">        } catch (Exception e) {</span>
+<span class="nc" id="L174">            System.out.println(&quot;Введён неверный номер.&quot;);</span>
+<span class="nc" id="L175">            return;</span>
+<span class="nc" id="L176">        }</span>
+<span class="nc" id="L177">        castleUI.buyUnit(unit, hero);</span>
+<span class="nc" id="L178">    }</span>
+
+    void printHeroesForUnitBuy(){
+<span class="nc" id="L181">        int i = 1;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        for (Hero hero: castle.getOwner().getHeroes()){</span>
+<span class="nc" id="L183">            System.out.println(i + &quot;. &quot; + hero);</span>
+<span class="nc" id="L184">            i++;</span>
+<span class="nc" id="L185">        }</span>
+<span class="nc" id="L186">    }</span>
+
+    int integerInputHandler(String input){
+<span class="nc" id="L189">        int num = -1;</span>
+        try {
+<span class="nc" id="L191">            num = Integer.parseInt(input);</span>
+<span class="nc" id="L192">        } catch (Exception e){</span>
+<span class="nc" id="L193">            System.out.println(&quot;Ошибка. Попробуйте снова.&quot;);</span>
+<span class="nc" id="L194">            return -1;</span>
+<span class="nc" id="L195">        }</span>
+<span class="nc" id="L196">        return num;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

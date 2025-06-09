@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Computer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">player</a> &gt; <span class="el_source">Computer.java</span></div><h1>Computer.java</h1><pre class="source lang-java linenums">package player;
+
+import asset.*;
+import castle.Castle;
+import classification.UnitClassificator;
+import game.Game;
+import map.GameMap;
+import misc.Coordinates;
+import misc.Locator;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Math.abs;
+
+public class Computer extends Player {
+    Player enemy;
+    GameMap gameMap;
+    GameMap battleMap;
+    boolean move;
+    public Computer(ArrayList&lt;Hero&gt; heroes, int gold, Player enemy, GameMap gameMap, GameMap battleMap, Game game){
+<span class="nc" id="L22">        super(heroes, gold, &quot;Computer&quot;, game);</span>
+<span class="nc" id="L23">        this.enemy = enemy;</span>
+<span class="nc" id="L24">        this.gameMap = gameMap;</span>
+<span class="nc" id="L25">        this.battleMap = battleMap;</span>
+<span class="nc" id="L26">        this.type = &quot;COMPUTER&quot;;</span>
+<span class="nc" id="L27">    }</span>
+
+    public void setBattleMap(GameMap battleMap) {
+<span class="nc" id="L30">        this.battleMap = this.getGame().getBattleMap();</span>
+<span class="nc" id="L31">    }</span>
+    public void acquireNormalArmy(){
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (this.getHeroes().isEmpty()){</span>
+<span class="nc" id="L34">            return;</span>
+        } else {
+<span class="nc" id="L36">            Hero hero = this.getHeroes().getFirst();</span>
+<span class="nc" id="L37">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L38">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L39">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L40">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L41">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L42">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L43">            hero = this.getHeroes().getLast();</span>
+<span class="nc" id="L44">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L45">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L46">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L47">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L48">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+<span class="nc" id="L49">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;paladin&quot;, hero));</span>
+        }
+<span class="nc" id="L51">    }</span>
+    public void acquireWeakArmy(){
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (this.getHeroes().isEmpty()){</span>
+<span class="nc" id="L54">            return;</span>
+        } else {
+<span class="nc" id="L56">            Hero hero = this.getHeroes().getFirst();</span>
+<span class="nc" id="L57">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;swordsman&quot;, hero));</span>
+<span class="nc" id="L58">            hero = this.getHeroes().getLast();</span>
+<span class="nc" id="L59">            hero.addUnit(UnitClassificator.createUnitByClass(&quot;swordsman&quot;, hero));</span>
+        }
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Цель этого метода: двинуться к замку игрока максимально &quot;простым&quot; путём - если на одной вертикали
+     * с замком, спускаться/подниматься, если на одной горизонтали, идти влева/вправо. Если ни то, ни другое,
+     * определить горизонталь замка и подняться/спуститься на неё.
+     * Если на пути герой игрока - начать сражение.
+     */
+    public void makeBestHeroMove(Hero hero){
+<span class="nc" id="L70">        int castleX = enemy.getCastle().getX();</span>
+<span class="nc" id="L71">        int castleY = enemy.getCastle().getY();</span>
+<span class="nc" id="L72">        int x = hero.getX();</span>
+<span class="nc" id="L73">        int y = hero.getY();</span>
+<span class="nc" id="L74">        System.out.println(&quot;МОИ КООРДИНАТЫ - (&quot; + x + &quot;, &quot; + y + &quot;)&quot;);</span>
+<span class="nc" id="L75">        System.out.println(&quot;ОБНАРУЖЕН ЗАМОК С КООРДИНАТАМИ (&quot; + castleX + &quot;, &quot; + castleY + &quot;). РАССЧИТЫВАЮ ТРАЕКТОРИЮ ДВИЖЕНИЯ...&quot;);</span>
+        //ArrayList&lt;Integer&gt; dQ = estimateRightAngleMove(x, y, castleX, castleY);
+<span class="nc" id="L77">        Coordinates dQ = estimateUnitSpacialMove(hero.getCoordinates(), enemy.getCastle().getCoordinates());</span>
+<span class="nc" id="L78">        System.out.println(&quot;ТРАЕКТОРИЯ РАССЧИТАНА, ВЕКТОР ПЕРЕМЕЩЕНИЯ (&quot; + dQ.get(1) + &quot;, &quot; + dQ.get(2) + &quot;)&quot;);</span>
+<span class="nc" id="L79">        evaluateSimplestActionForAnyMovingEntity(hero, dQ);</span>
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Выполняет простейшее ДЕЙСТВИЕ в указанном направлении. Грубо говоря,
+     * пытается сходить в указанную сторону и взаимодействует/атакаует всё
+     * что попадается на пути.
+     */
+    public void evaluateSimplestActionForAnyMovingEntity(Entity entity, Coordinates dQ){
+<span class="nc" id="L88">        Asset cell = Locator.getCellWithDqOffset(entity, dQ);</span>
+<span class="nc" id="L89">        System.out.println(&quot;сущность бота &quot; + entity + &quot; хочет сместиться на &quot; + dQ);</span>
+
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (Objects.isNull(cell)){</span>
+<span class="nc" id="L92">            proceedToCell(entity, dQ);</span>
+<span class="nc" id="L93">            return;</span>
+        } else {
+
+<span class="nc" id="L96">        System.out.println(&quot;в точке перемещения находится &quot; + cell + &quot; &quot; + cell.getCoordinates());}</span>
+<span class="nc bnc" id="L97" title="All 5 branches missed.">        switch (cell.getType()){</span>
+            case &quot;cell&quot;:
+<span class="nc" id="L99">                proceedToCell(entity, dQ);</span>
+<span class="nc" id="L100">                break;</span>
+            case &quot;castle&quot;:
+<span class="nc" id="L102">                analyzeCastle((Hero) entity, (Castle) cell);</span>
+<span class="nc" id="L103">                break;</span>
+            case &quot;unit&quot;:
+<span class="nc" id="L105">                tryToAttack(entity, (Unit) cell);</span>
+<span class="nc" id="L106">                break;</span>
+            case &quot;hero&quot;:
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                if (checkFF(entity, (Hero)cell)){</span>
+<span class="nc" id="L109">                    entity.setCurrentMP(0);</span>
+<span class="nc" id="L110">                    break;</span>
+                }
+<span class="nc" id="L112">                proceedToBattle(entity, (Hero) cell);</span>
+                break;
+        }
+<span class="nc" id="L115">    }</span>
+
+
+
+    public Coordinates leftMoveDq(){
+<span class="nc" id="L120">        Coordinates result = new Coordinates();</span>
+<span class="nc" id="L121">        result = result.withComponent(1, -1).withComponent(2, 0);</span>
+<span class="nc" id="L122">        return result;</span>
+    }
+    void analyzeCastle(Hero hero, Castle castle){
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        if (castle.getOwner().equals(hero.getOwner())){</span>
+<span class="nc" id="L126">            evaluateSimplestActionForAnyMovingEntity(hero, leftMoveDq());</span>
+        } else {
+<span class="nc" id="L128">            startCapturing(hero, castle);</span>
+        }
+<span class="nc" id="L130">    }</span>
+
+    public void simpleBotMove() {
+<span class="nc" id="L133">        move = true;</span>
+<span class="nc" id="L134">        getGame().replenish(this);</span>
+<span class="nc" id="L135">        System.out.println(&quot;БОТУ ДАЛИ ХОД !! ! !! !  !!  !! ! ! ! ! ! ! ! ! ! !   ! !! !  ! ! !&quot;);</span>
+<span class="nc" id="L136">        int i = 0;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (getGame().getStatus().equals(&quot;global&quot;)){</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            while (i &lt; this.getHeroes().size()){</span>
+<span class="nc" id="L139">                heroMoveCycle(this.getHeroes().get(i));</span>
+<span class="nc" id="L140">                i++;</span>
+            }
+        }
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (getGame().getStatus().equals(&quot;battle&quot;)){</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            for (Unit unit: getGame().getBattle().getHeroBelongingToComputer().getArmy()){</span>
+<span class="nc" id="L145">                unitMoveCycle(unit);</span>
+<span class="nc" id="L146">            }</span>
+        }
+<span class="nc" id="L148">    }</span>
+
+    void sleep(){
+        try {
+<span class="nc" id="L152">            TimeUnit.MILLISECONDS.sleep(20);</span>
+<span class="nc" id="L153">        } catch (InterruptedException e) {</span>
+<span class="nc" id="L154">            throw new RuntimeException(e);</span>
+<span class="nc" id="L155">        }</span>
+<span class="nc" id="L156">    }</span>
+
+    public void heroMoveCycle(Hero hero){
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (hero.isBusyCapturing()){</span>
+<span class="nc" id="L160">            return;</span>
+        }
+<span class="nc" id="L162">        System.out.println(&quot;Бот начинает ходить героем &quot; + hero.getDesign());</span>
+<span class="nc bnc" id="L163" title="All 6 branches missed.">        while (hero.isAlive() &amp;&amp; hero.getCurrentMP() &gt; 0 &amp;&amp; !hero.isBusyCapturing()){</span>
+<span class="nc" id="L164">            sleep();</span>
+<span class="nc" id="L165">            makeBestHeroMove(hero);</span>
+<span class="nc" id="L166">            getGame().render();</span>
+        }
+<span class="nc" id="L168">    }</span>
+    public void unitMoveCycle(Unit unit){
+<span class="nc bnc" id="L170" title="All 6 branches missed.">        while (unit.isAlive() &amp;&amp; unit.getCurrentMP() &gt; 0 &amp;&amp; move){</span>
+<span class="nc" id="L171">            sleep();</span>
+<span class="nc" id="L172">            makeBestUnitMove(unit);</span>
+<span class="nc" id="L173">            getGame().render();</span>
+        }
+<span class="nc" id="L175">    }</span>
+    void stop(){
+<span class="nc" id="L177">        move = false;</span>
+<span class="nc" id="L178">    }</span>
+    // Цель этого метода: вызвать &quot;локатор&quot; вражеских юнитов, выбрать того из них, евклидово расстояние
+    // до которого меньше всего, идти в его направлении &quot;простым&quot; путём в виде прямого угла. Если на пути вражеский
+    // юнит - атаковать, пробовать отступать в обратном атаке направлении, если на пути что угодно - пропуск хода.
+    public void makeBestUnitMove(Unit unit){
+<span class="nc" id="L183">        Unit closest = Locator.findClosestEnemyUnit(unit, battleMap);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (Objects.isNull(closest)){</span>
+<span class="nc" id="L185">            stop();</span>
+<span class="nc" id="L186">            return;</span>
+        }
+<span class="nc" id="L188">        Coordinates dQ = estimateUnitSpacialMove(unit.getCoordinates(), closest.getCoordinates());</span>
+<span class="nc" id="L189">        evaluateSimplestActionForAnyMovingEntity(unit, dQ);</span>
+<span class="nc" id="L190">    }</span>
+
+    public void proceedToCell(Entity entity, Coordinates dQ){
+<span class="nc" id="L193">        Asset cell = Locator.getCellWithDqOffset(entity, dQ);</span>
+<span class="nc" id="L194">        entity.getMap().relocate(entity, entity.getCoordinates().add(dQ));</span>
+<span class="nc" id="L195">        entity.takeMovementPointsForMovingTo((Cell)cell);</span>
+<span class="nc" id="L196">    }</span>
+
+    public void tryToAttack(Entity entity, Unit target){
+<span class="nc bnc" id="L199" title="All 4 branches missed.">        if (!checkFF(entity, target) &amp;&amp; entity.isAbleToAttack()){</span>
+<span class="nc" id="L200">            target.dealDamage(entity.getDamage());</span>
+<span class="nc" id="L201">            target.checkLiving();</span>
+        }
+<span class="nc" id="L203">        entity.setAbleToAttack(false);</span>
+<span class="nc" id="L204">        entity.setCurrentMP(0);</span>
+<span class="nc" id="L205">    }</span>
+
+    boolean checkFF(Entity entity1, Entity entity2){
+<span class="nc" id="L208">        return entity1.getOwner().equals(entity2.getOwner());</span>
+    }
+
+    public void proceedToBattle(Entity entity, Hero hero){
+<span class="nc" id="L212">        getGame().beginBattle((Hero)entity, hero);</span>
+<span class="nc" id="L213">    }</span>
+
+    public void startCapturing(Hero hero, Castle castle){
+<span class="nc" id="L216">        hero.takeAVisit(castle);</span>
+<span class="nc" id="L217">        this.addCaptor(hero);</span>
+<span class="nc" id="L218">        hero.setCurrentMP(0);</span>
+<span class="nc" id="L219">    }</span>
+
+    /**
+     * Определяет направление хода для бота, двигающегося примитивно по прямому углу на плоскости.
+     */
+    ArrayList&lt;Integer&gt; estimateRightAngleMove(int x1, int y1, int x2, int y2){
+        // me
+<span class="nc" id="L226">        ArrayList&lt;Integer&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if (y1 != y2){</span>
+<span class="nc" id="L228">            result.add(0);</span>
+<span class="nc" id="L229">            result.add((y2-y1)/abs(y2-y1));</span>
+        }
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        else if (x1 != x2){</span>
+<span class="nc" id="L232">            result.add((x2-x1)/abs(x2-x1));</span>
+<span class="nc" id="L233">            result.add(0);</span>
+        }
+<span class="nc" id="L235">        return result;</span>
+    }
+
+    /**
+     * Определяет направление хода для бота, двигающегося по прямой в пространстве.
+     */
+    Coordinates estimateUnitSpacialMove (Coordinates current, Coordinates target) {
+<span class="nc" id="L242">        Coordinates result = target.subtract(current);</span>
+<span class="nc" id="L243">        System.out.println(&quot;Рассчитанный вектор движения &quot; + result);</span>
+<span class="nc" id="L244">        Optional&lt;Integer&gt; dirInt = getRandomSetElement(result.getAxi());</span>
+<span class="nc" id="L245">        int dir = dirInt.orElse(42);</span>
+<span class="nc" id="L246">        System.out.println(&quot;Избранная для движения ось &quot; + dir);</span>
+<span class="nc" id="L247">        Coordinates result_move = Coordinates.project(result, dir);</span>
+<span class="nc" id="L248">        result_move = Coordinates.integerNormalization(result_move);</span>
+<span class="nc" id="L249">        return result_move;</span>
+    }
+
+
+    public static &lt;T&gt; Optional&lt;T&gt; getRandomSetElement(Set&lt;T&gt; set) {
+<span class="nc bnc" id="L254" title="All 2 branches missed.">        if (set.isEmpty()) {</span>
+<span class="nc" id="L255">            return Optional.empty();</span>
+        }
+<span class="nc" id="L257">        List&lt;T&gt; list = new ArrayList&lt;&gt;(set);</span>
+<span class="nc" id="L258">        return Optional.of(list.get(new Random().nextInt(list.size())));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

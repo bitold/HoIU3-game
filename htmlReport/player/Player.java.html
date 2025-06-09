@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">player</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">package player;
+
+import asset.Asset;
+import asset.Hero;
+import castle.Castle;
+import game.Game;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class Player implements Serializable {
+<span class="nc" id="L15">    private ArrayList&lt;Hero&gt; heroes = new ArrayList&lt;&gt;();</span>
+    private int gold;
+    private Castle castle;
+    private int heroAmount;
+    private String nickname;
+    private Hero battler;
+<span class="nc" id="L21">    private Set&lt;Hero&gt; castleCaptors = new HashSet&lt;&gt;();</span>
+    private Game game;
+    String type;
+
+<span class="nc" id="L25">    Player(){</span>
+
+<span class="nc" id="L27">    }</span>
+<span class="nc" id="L28">    public Player(ArrayList&lt;Hero&gt; heroes, int gold, String nickname, Game game){</span>
+<span class="nc" id="L29">        this.heroes = heroes;</span>
+<span class="nc" id="L30">        this.gold = gold;</span>
+<span class="nc" id="L31">        this.heroAmount = heroes.size();</span>
+<span class="nc" id="L32">        this.nickname = nickname;</span>
+<span class="nc" id="L33">        this.game = game;</span>
+<span class="nc" id="L34">        this.type = &quot;PLAYER&quot;;</span>
+<span class="nc" id="L35">    }</span>
+
+    public void addCaptor(Hero hero){
+<span class="nc" id="L38">        castleCaptors.add(hero);</span>
+<span class="nc" id="L39">    }</span>
+
+
+    public void castleCaptureIteration(){
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        for (Hero captor: castleCaptors){</span>
+<span class="nc" id="L44">            captor.damageCastle();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (captor.getCurrentCastle().isCaptured()){</span>
+<span class="nc" id="L46">                game.addLoser(captor.getCurrentCastle().getOwner());</span>
+            }
+<span class="nc" id="L48">        }</span>
+<span class="nc" id="L49">    }</span>
+
+    public String getNickname() {
+<span class="nc" id="L52">        return nickname;</span>
+    }
+
+    public void setCastle(Castle castle) {
+<span class="nc" id="L56">        this.castle = castle;</span>
+<span class="nc" id="L57">        castle.setOwner(this);</span>
+<span class="nc" id="L58">    }</span>
+
+    public void takeGold(int amount){
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (this.gold &gt; amount){</span>
+<span class="nc" id="L62">            gold-=amount;</span>
+        }
+<span class="nc" id="L64">    }</span>
+
+    public Castle getCastle() {
+<span class="nc" id="L67">        return castle;</span>
+    }
+
+    public int getGold() {
+<span class="nc" id="L71">        return gold;</span>
+    }
+
+    public ArrayList&lt;Hero&gt; getHeroes() {
+<span class="nc" id="L75">        return heroes;</span>
+    }
+
+
+    public void setBattler(Hero battler) {
+<span class="nc" id="L80">        this.battler = battler;</span>
+<span class="nc" id="L81">    }</span>
+
+    public Hero getBattler() {
+<span class="nc" id="L84">        return battler;</span>
+    }
+
+    void checkExpelHeroes(){
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (!heroes.isEmpty()){</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            heroes.removeIf(hero -&gt; hero.getArmySize() == 0);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if (!Objects.isNull(castleCaptors)){</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                castleCaptors.removeIf(hero -&gt; !heroes.contains(hero));</span>
+            }
+<span class="nc" id="L93">            heroAmount = heroes.size();</span>
+        } else {
+<span class="nc" id="L95">            heroAmount=0;</span>
+        }
+<span class="nc" id="L97">    }</span>
+
+    public boolean haveLost(){
+<span class="nc" id="L100">        checkExpelHeroes();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (castle.isCaptured()){</span>
+<span class="nc" id="L102">            System.out.println(&quot;Замок игрока &quot; + this + &quot; захвачен.&quot;);</span>
+        }
+<span class="nc bnc" id="L104" title="All 4 branches missed.">        return (heroAmount &lt;= 0 || castle.isCaptured());</span>
+    }
+
+    public void printStats(){
+<span class="nc" id="L108">        System.out.println(&quot;Статистика игрока:&quot;);</span>
+<span class="nc" id="L109">        System.out.println(&quot;Золота: &quot; + gold);</span>
+<span class="nc" id="L110">        System.out.println(&quot;    Список героев:&quot;);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        for (int i = 0; i&lt;heroes.size(); i++) {</span>
+<span class="nc" id="L112">            Hero hero = heroes.get(i);</span>
+<span class="nc" id="L113">            System.out.println((&quot;   &quot; + i+1) + &quot;. Герой: &quot; + hero.getDesign() + &quot;    Армия:&quot;);</span>
+<span class="nc" id="L114">            (hero).printArmy();</span>
+         }
+<span class="nc" id="L116">    }</span>
+
+    public void expelHero(Hero hero){
+<span class="nc" id="L119">        heroes.remove(hero);</span>
+<span class="nc" id="L120">        hero.expelFromCastle();</span>
+<span class="nc" id="L121">        castleCaptors.remove(hero);</span>
+<span class="nc" id="L122">        heroAmount--;</span>
+<span class="nc" id="L123">    }</span>
+
+    public void giveGold(int gold){
+<span class="nc" id="L126">        this.gold = this.gold + gold;</span>
+<span class="nc" id="L127">    }</span>
+
+    public void setGold(int gold) {
+<span class="nc" id="L130">        this.gold = gold;</span>
+<span class="nc" id="L131">    }</span>
+
+    public void setHeroes(ArrayList&lt;Hero&gt; heroes) {
+<span class="nc" id="L134">        this.heroes = heroes;</span>
+<span class="nc" id="L135">    }</span>
+
+    public void addHero(Hero hero){
+<span class="nc" id="L138">        this.heroes.add(hero);</span>
+<span class="nc" id="L139">        this.heroAmount++;</span>
+<span class="nc" id="L140">    }</span>
+
+    public Game getGame() {
+<span class="nc" id="L143">        return game;</span>
+    }
+
+    public void setType(String type) {
+<span class="nc" id="L147">        this.type = type;</span>
+<span class="nc" id="L148">    }</span>
+
+    public String getType() {
+<span class="nc" id="L151">        return type;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L156">        return this.getNickname();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

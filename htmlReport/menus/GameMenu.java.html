@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">menus</a> &gt; <span class="el_source">GameMenu.java</span></div><h1>GameMenu.java</h1><pre class="source lang-java linenums">package menus;
+
+import asset.Entity;
+import asset.Hero;
+import asset.Unit;
+import castle.Castle;
+import game.Game;
+import map.GameMap;
+import misc.Coordinates;
+import misc.MapEditor;
+import misc.SaveSystem;
+import player.Player;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.logging.Logger;
+
+
+
+public class GameMenu implements Serializable {
+    private static final String MAPS_DIR = &quot;maps&quot;;
+    Game game;
+    GameMap gameMap;
+    GameMap battleMap;
+<span class="pc" id="L31">    transient private Scanner scanner = new Scanner(System.in);</span>
+    private static final String BASE_DIR = &quot;.&quot;; // Текущая директория
+<span class="fc" id="L33">    private static final Logger logger = Logger.getLogger(GameMenu.class.getName());</span>
+
+<span class="nc" id="L35">    public GameMenu(Game game){</span>
+<span class="nc" id="L36">        this.game = game;</span>
+<span class="nc" id="L37">        this.gameMap = game.getGameMap();</span>
+<span class="nc" id="L38">        this.battleMap = game.getBattleMap();</span>
+<span class="nc" id="L39">    }</span>
+
+<span class="fc" id="L41">    public GameMenu(){</span>
+
+<span class="fc" id="L43">    }</span>
+
+    public void refreshBattleMap(){
+<span class="nc" id="L46">        this.battleMap = game.getBattleMap();</span>
+<span class="nc" id="L47">    }</span>
+
+    public void setGameMap(GameMap gameMap) {
+<span class="nc" id="L50">        this.gameMap = gameMap;</span>
+<span class="nc" id="L51">    }</span>
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+<span class="nc" id="L54">        ois.defaultReadObject();</span>
+<span class="nc" id="L55">        this.scanner = new Scanner(System.in);</span>
+<span class="nc" id="L56">    }</span>
+
+    public void printMoveInterface(int mode){
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (mode == 0){</span>
+<span class="nc" id="L60">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L61">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L62">            System.out.println(&quot;Игровое поле:&quot;);</span>
+<span class="nc" id="L63">            gameMap.render();</span>
+<span class="nc" id="L64">            System.out.println(&quot;Ходит &quot; + game.getCurrentlyMoving().getNickname());</span>
+<span class="nc" id="L65">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L66">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        } else if (mode == 1) {</span>
+<span class="nc" id="L68">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L69">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L70">            System.out.println(&quot;Поле сражения:&quot;);</span>
+<span class="nc" id="L71">            battleMap.render();</span>
+<span class="nc" id="L72">            System.out.println(&quot;Ходит &quot; + game.getCurrentlyMoving().getNickname());</span>
+<span class="nc" id="L73">            System.out.println(&quot;__________________________________________________&quot;);</span>
+<span class="nc" id="L74">            System.out.println(&quot;__________________________________________________&quot;);</span>
+        }
+<span class="nc" id="L76">    }</span>
+
+    void printEntityMapWithKeysAfter(GameMap map){
+<span class="nc" id="L79">        System.out.println(&quot;Карта сущностей:&quot;);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (Entity entity: map.getEntitiesMap().values()){</span>
+<span class="nc" id="L81">            System.out.println(entity.toString() + entity.getCoordinates());</span>
+<span class="nc" id="L82">        }</span>
+<span class="nc" id="L83">        List&lt;Map.Entry&lt;Coordinates, Entity&gt;&gt; entityMapList = map.getEntitiesMap().entrySet().stream().toList();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        for (Map.Entry&lt;Coordinates, Entity&gt; entry: entityMapList){</span>
+<span class="nc" id="L85">            System.out.println(&quot;Хэшкод ключа &quot; + entry.getKey() + &quot; = &quot; + entry.getKey().hashCode());</span>
+<span class="nc" id="L86">        }</span>
+<span class="nc" id="L87">    }</span>
+
+    public void printUnitExhausted(){
+<span class="nc" id="L90">        System.out.println(&quot;Энергия юнита иссякла.&quot;);</span>
+<span class="nc" id="L91">    }</span>
+
+    public void printGivingMove(){
+<span class="nc" id="L94">        System.out.println(&quot;Энергия юнитов закончилась. Передача хода...&quot;);</span>
+<span class="nc" id="L95">    }</span>
+
+    public void printGivingConrtol(Entity entity){
+<span class="nc" id="L98">        System.out.println(&quot;Вы управляете &quot; + entity.getType() + &quot; &quot; + entity.getDesign());</span>
+<span class="nc" id="L99">        System.out.println(&quot;Энергии на передвижение: &quot; + entity.getCurrentMP());</span>
+<span class="nc" id="L100">    }</span>
+
+    public void printPlayerLost(Player player){
+<span class="nc" id="L103">        System.out.println(&quot;ИГРОК &quot; + player.getNickname() + &quot; ПРОИГРАЛ.&quot;);</span>
+<span class="nc" id="L104">    }</span>
+
+    public void printGameOver(){
+<span class="nc" id="L107">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L108">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L109">        System.out.println(&quot;ИГРА ОКОНЧЕНА.&quot;);</span>
+<span class="nc" id="L110">        Set&lt;Player&gt; losers = game.getLosers();</span>
+<span class="nc" id="L111">        Set&lt;Player&gt; players = game.getPlayers();</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        for (Player loser: losers){</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            System.out.println(&quot;Игрок &quot; + loser + &quot; проиграл. Он &quot; + (loser.getCastle().isCaptured() ? &quot;потерял замок.&quot; : &quot;потерял всех героев.&quot;));</span>
+<span class="nc" id="L114">        }</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        for (Player player: players){</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            if (!losers.contains(player)){</span>
+<span class="nc" id="L117">                System.out.println(&quot;Игрок &quot; + player + &quot; выиграл.&quot;);</span>
+            }
+<span class="nc" id="L119">        }</span>
+<span class="nc" id="L120">    }</span>
+
+    public void printBattleOver(){
+
+<span class="nc" id="L124">    }</span>
+
+    public void printDealtDamage(Unit unit, int damage){
+<span class="nc" id="L127">        System.out.println(&quot;Юниту &quot; + unit.getDesign() + &quot; нанесено &quot; + damage + &quot; урона.&quot;);</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        System.out.println(&quot;У него осталось &quot; + unit.getHealth() + &quot;HP.&quot; + (unit.getHealth() &lt;= 0 ? &quot; Юнит &quot; + unit.getDesign() + &quot; повержен.&quot; : &quot;&quot;));</span>
+<span class="nc" id="L129">    }</span>
+
+
+    public void printStatistics(Player player){
+<span class="nc" id="L133">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L134">        System.out.println(&quot;Статистика игрока &quot; + player.getNickname());</span>
+<span class="nc" id="L135">        System.out.println(&quot;Список героев:&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for (Hero hero: player.getHeroes()){</span>
+<span class="nc" id="L137">            System.out.println(hero.toString() + &quot;. Состав армии &quot; + hero.getArmySize() );</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            for (Unit unit: hero.getArmy()){</span>
+<span class="nc" id="L139">                System.out.println(&quot;    &quot; + unit.toString());</span>
+<span class="nc" id="L140">            }</span>
+<span class="nc" id="L141">        }</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        System.out.println(&quot;Состояние замка: Замок &quot; + (player.getCastle().isBeingCaptured() ? &quot;ЗАХВАТЫВАЕТСЯ&quot; + printWhoIsCapturing(player.getCastle()) : &quot;НЕ ЗАХВАТЫВАЕТСЯ&quot;));</span>
+<span class="nc" id="L143">        System.out.println(&quot;Здоровье замка: &quot; + player.getCastle().getCurrentDurability());</span>
+<span class="nc" id="L144">        System.out.println(&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;);</span>
+<span class="nc" id="L145">    }</span>
+
+    public String printWhoIsCapturing(Castle castle){
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (!Objects.isNull(castle.getVisitor())){</span>
+<span class="nc" id="L149">            System.out.println(&quot;В замке игрока &quot; + castle.getOwner().getNickname() + &quot; находится &quot; + castle.getVisitor().toStringShortened());</span>
+        }
+<span class="nc" id="L151">        return &quot;&quot;;</span>
+    }
+
+
+    public void mainMenuCycle(String nickname){
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        while (runMainMenu(nickname));</span>
+<span class="nc" id="L157">        System.out.println(game.getStatus());</span>
+<span class="nc" id="L158">        startGameIfNeverStarted();</span>
+
+<span class="nc" id="L160">        game.gameCycle();</span>
+<span class="nc" id="L161">    }</span>
+
+
+    public boolean runMainMenu(String nickname) {
+<span class="fc" id="L165">        System.out.println(&quot;Главное меню. Выберите действие: &quot;);</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (!Objects.isNull(game)) {System.out.println(&quot;0. Продолжить&quot;);}</span>
+<span class="fc" id="L167">        System.out.println(&quot;1. Новая игра&quot;);</span>
+<span class="fc" id="L168">        System.out.println(&quot;2. Сохранить игру&quot;);</span>
+<span class="fc" id="L169">        System.out.println(&quot;3. Загрузить игру&quot;);</span>
+<span class="fc" id="L170">        System.out.println(&quot;4. Таблица рекордов&quot;);</span>
+<span class="fc" id="L171">        System.out.println(&quot;5. Редактор карт&quot;);</span>
+<span class="fc" id="L172">        System.out.println(&quot;6. Выйти&quot;);</span>
+
+<span class="fc" id="L174">        String input = scanner.nextLine();</span>
+<span class="pc bpc" id="L175" title="7 of 8 branches missed.">        switch (input){</span>
+            case &quot;0&quot;:
+<span class="nc bnc" id="L177" title="All 2 branches missed.">                if (!Objects.isNull(game)) {return false;} else break;</span>
+            case &quot;1&quot;:
+<span class="nc" id="L179">                createGame(nickname, scanner);</span>
+<span class="nc" id="L180">                break;</span>
+            case &quot;2&quot;:
+<span class="nc" id="L182">                saveGame(nickname, scanner);</span>
+<span class="nc" id="L183">                break;</span>
+            case &quot;3&quot;:
+<span class="nc" id="L185">                loadGame(nickname, scanner);</span>
+<span class="nc" id="L186">                break;</span>
+            case &quot;4&quot;:
+<span class="nc" id="L188">                break;</span>
+            case &quot;5&quot;:
+<span class="nc" id="L190">                EditorMenu editorMenu = new EditorMenu();</span>
+<span class="nc" id="L191">                editorMenu.run();</span>
+            case &quot;6&quot;:
+<span class="nc" id="L193">                System.exit(0);</span>
+<span class="nc" id="L194">                return false;</span>
+        }
+<span class="nc" id="L196">        return true;</span>
+    }
+
+
+    private void startGameIfNeverStarted(){
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if (game.getStatus().equals(&quot;pregame&quot;)){</span>
+<span class="nc" id="L202">            game.setStatus(&quot;buying&quot;);</span>
+<span class="nc" id="L203">            game.preGame();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        } else if (game.getStatus().equals(&quot;battle&quot;)) {</span>
+<span class="nc" id="L205">            game.render();</span>
+<span class="nc" id="L206">            game.battleCycle();</span>
+        } else {
+<span class="nc" id="L208">            game.render();</span>
+<span class="nc" id="L209">            game.gameCycle();</span>
+        }
+<span class="nc" id="L211">    }</span>
+
+
+    private void createGame(String nickname, Scanner scanner) {
+<span class="nc" id="L215">        gameCreationSetupMenu(nickname, scanner);</span>
+<span class="nc" id="L216">        System.out.println(&quot;Введите номер слота (1-10): &quot;);</span>
+<span class="nc" id="L217">        String input = scanner.nextLine();</span>
+<span class="nc" id="L218">        int slot = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L219">        game.saveToSlot(BASE_DIR, nickname, slot);</span>
+<span class="nc" id="L220">        System.out.println(&quot;Ваша игра создана! Нажмите 0 чтобы перейти к игре.&quot;);</span>
+<span class="nc" id="L221">    }</span>
+
+    private void gameCreationSetupMenu(String nickname, Scanner scanner){
+<span class="nc" id="L224">        System.out.println(&quot;Выберите карту: &quot;);</span>
+<span class="nc" id="L225">        System.out.println(&quot;0. Сгенерировать стандартную карту&quot;);</span>
+<span class="nc" id="L226">        System.out.println(&quot;1. Выбрать кастомную карту&quot;);</span>
+<span class="nc" id="L227">        String choice = scanner.nextLine();</span>
+<span class="nc bnc" id="L228" title="All 3 branches missed.">        switch (choice){</span>
+            case &quot;0&quot;:
+<span class="nc" id="L230">                standartGameCreationMenu(nickname);</span>
+<span class="nc" id="L231">                break;</span>
+            case &quot;1&quot;:
+<span class="nc" id="L233">                customMapGameCreationMenu(nickname);</span>
+                break;
+        }
+<span class="nc" id="L236">    }</span>
+
+    private void customMapGameCreationMenu(String nickname){
+<span class="nc" id="L239">        printAvailableMaps();</span>
+<span class="nc" id="L240">        System.out.println(&quot;Введите название карты: &quot;);</span>
+<span class="nc" id="L241">        String choice = scanner.nextLine();</span>
+        try {
+<span class="nc" id="L243">            GameMap map = GameMap.loadFromFile(MAPS_DIR + &quot;/&quot; + choice + &quot;.dat&quot;);</span>
+<span class="nc" id="L244">            Game game = new Game();</span>
+
+<span class="nc" id="L246">            game.initializeCustomMapGame(map, nickname);</span>
+<span class="nc" id="L247">            this.game = game;</span>
+<span class="nc" id="L248">            this.gameMap = map;</span>
+<span class="nc" id="L249">            game.setGameMenu(this);</span>
+
+<span class="nc" id="L251">        } catch (Exception e) {</span>
+<span class="nc" id="L252">            System.out.println(&quot;Что-то пошло не так. Попробуйте снова.&quot; + e);</span>
+<span class="nc" id="L253">        }</span>
+<span class="nc" id="L254">    }</span>
+
+    private void printAvailableMaps(){
+        try {
+<span class="nc" id="L258">            Path mapsDir = Paths.get(MAPS_DIR);</span>
+
+            // Проверяем существование папки
+<span class="nc bnc" id="L261" title="All 2 branches missed.">            if (!Files.exists(mapsDir)) {</span>
+<span class="nc" id="L262">                System.out.println(&quot;Папка '&quot; + MAPS_DIR + &quot;' не найдена. Доступных карт нет.&quot;);</span>
+<span class="nc" id="L263">                return;</span>
+            }
+
+            // Получаем список файлов с расширением .dat
+<span class="nc" id="L267">            System.out.println(&quot;Доступные карты:&quot;);</span>
+<span class="nc" id="L268">            Files.list(mapsDir)</span>
+<span class="nc" id="L269">                    .filter(path -&gt; path.toString().endsWith(&quot;.dat&quot;))</span>
+<span class="nc" id="L270">                    .forEach(path -&gt; {</span>
+<span class="nc" id="L271">                        String fileName = path.getFileName().toString();</span>
+<span class="nc" id="L272">                        String mapName = fileName.substring(0, fileName.lastIndexOf(&quot;.dat&quot;));</span>
+<span class="nc" id="L273">                        System.out.println(&quot;- &quot; + mapName);</span>
+<span class="nc" id="L274">                    });</span>
+
+<span class="nc" id="L276">        } catch (IOException e) {</span>
+<span class="nc" id="L277">            logger.severe(&quot;Ошибка при чтении папки maps: &quot; + e.getMessage());</span>
+<span class="nc" id="L278">            System.out.println(&quot;Не удалось загрузить список карт.&quot;);</span>
+<span class="nc" id="L279">        }</span>
+<span class="nc" id="L280">    }</span>
+
+    private void standartGameCreationMenu(String nickname){
+<span class="nc" id="L283">        System.out.println(&quot;Введите размеры карты. Её стороны должны быть длиной не менее 5 клеток.&quot;);</span>
+        int w, h;
+        while (true) {
+            try {
+<span class="nc" id="L287">                System.out.print(&quot;Высота карты: &quot;);</span>
+<span class="nc" id="L288">                h = Integer.parseInt(scanner.next());</span>
+<span class="nc" id="L289">                System.out.print(&quot;Ширина карты: &quot;);</span>
+<span class="nc" id="L290">                w = Integer.parseInt(scanner.next());</span>
+<span class="nc bnc" id="L291" title="All 4 branches missed.">                if (h &lt; 5 || w &lt; 5) {</span>
+<span class="nc" id="L292">                    System.out.println(&quot;Слишком маленькие размеры карты! Попробуйте снова.&quot;);</span>
+                } else {
+<span class="nc" id="L294">                    break;</span>
+                }
+<span class="nc" id="L296">            } catch (Exception e) {</span>
+<span class="nc" id="L297">                System.out.println(&quot;Что то пошло не так. Попробуйте снова.&quot;);</span>
+<span class="nc" id="L298">            }</span>
+        }
+<span class="nc" id="L300">        Game game = new Game();</span>
+<span class="nc" id="L301">        game.initializeDefaultGame(h, w, nickname);</span>
+
+<span class="nc" id="L303">        this.game = game;</span>
+<span class="nc" id="L304">        this.gameMap = game.getGameMap();</span>
+<span class="nc" id="L305">        game.setGameMenu(this);</span>
+<span class="nc" id="L306">    }</span>
+
+    private void saveGame(String nickname, Scanner scanner) {
+<span class="nc" id="L309">        System.out.print(&quot;Введите номер слота (1-10): &quot;);</span>
+<span class="nc" id="L310">        int slot = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L311">        game.saveToSlot(BASE_DIR, nickname, slot);</span>
+<span class="nc" id="L312">    }</span>
+
+    private void loadGame(String nickname, Scanner scanner) {
+<span class="nc" id="L315">        System.out.print(&quot;Введите номер слота (1-10): &quot;);</span>
+<span class="nc" id="L316">        int slot = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L317">        Game game = Game.loadFromSlot(BASE_DIR, nickname, slot);</span>
+<span class="nc" id="L318">        this.game = game;</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">        if (game != null) {</span>
+<span class="nc" id="L320">            System.out.println(&quot;Игра загружена.&quot;);</span>
+<span class="nc" id="L321">            game.setFreshlyLoaded(true);</span>
+        } else {
+<span class="nc" id="L323">            System.out.println(&quot;Ошибка загрузки.&quot;);</span>
+        }
+<span class="nc" id="L325">    }</span>
+
+    private void viewSaves(SaveSystem saveSystem, String nickname) {
+<span class="nc" id="L328">        List&lt;Integer&gt; slots = saveSystem.getAvailableSlots(nickname);</span>
+<span class="nc" id="L329">        System.out.println(&quot;Доступные слоты для игрока &quot; + nickname + &quot;: &quot; + slots);</span>
+<span class="nc" id="L330">    }</span>
+
+    private void deleteSave(SaveSystem saveSystem, String nickname, Scanner scanner) {
+<span class="nc" id="L333">        System.out.print(&quot;Введите номер слота для удаления: &quot;);</span>
+<span class="nc" id="L334">        int slot = Integer.parseInt(scanner.nextLine());</span>
+<span class="nc" id="L335">        saveSystem.deleteSlot(nickname, slot);</span>
+<span class="nc" id="L336">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

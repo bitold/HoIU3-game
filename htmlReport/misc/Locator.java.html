@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Locator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">misc</a> &gt; <span class="el_source">Locator.java</span></div><h1>Locator.java</h1><pre class="source lang-java linenums">package misc;
+
+import asset.Asset;
+import asset.Entity;
+import asset.Unit;
+import map.GameMap;
+import player.Player;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
+<span class="nc" id="L15">public class Locator {</span>
+    public static ArrayList&lt;Unit&gt; locateUnitsInRange(Asset center, int range, GameMap gameMap){
+<span class="nc" id="L17">        int x = center.getX();</span>
+<span class="nc" id="L18">        int y = center.getY();</span>
+
+<span class="nc" id="L20">        ArrayList&lt;Unit&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">        Asset[][] matrix = gameMap.getMatrix();</span>
+
+
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        for (int i = -range; i &lt;= range; i++){</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">            for (int j = -range; j &lt;= range; j++){</span>
+<span class="nc bnc" id="L26" title="All 8 branches missed.">                if ((y+i &gt;= 0) &amp;&amp; (x+j &gt;= 0) &amp;&amp; ((x+j) &lt; gameMap.getWidth()) &amp;&amp; ((y+i) &lt; gameMap.getHeight())){</span>
+                    //System.out.println(&quot;Рассмотрение координат &quot; + (x+j) + &quot;, &quot; + (y+i) + &quot; на карте размерами &quot; + gameMap.getHeight() + &quot;X&quot; + gameMap.getWidth());
+<span class="nc" id="L28">                    Asset target = matrix[y+i][x+j];</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">                    if (target.getType().equals(&quot;unit&quot;) &amp;&amp; distance(center, target) &lt;= range){</span>
+<span class="nc" id="L30">                        result.add((Unit) target);</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L35">        return result;</span>
+    }
+
+    public static ArrayList&lt;Unit&gt; locateAllEnemies(Asset center, GameMap gameMap){
+<span class="nc" id="L39">        Player owner = ((Entity)center).getOwner();</span>
+
+<span class="nc" id="L41">        ArrayList&lt;Unit&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L42">        Asset[][] matrix = gameMap.getMatrix();</span>
+<span class="nc" id="L43">        int size = gameMap.getHeight();</span>
+<span class="nc" id="L44">        HashMap&lt;Coordinates, Entity&gt; entities = gameMap.getEntitiesMap();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        for (Entity e: entities.values()){</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">            if (e.getType().equals(&quot;unit&quot;) &amp;&amp; !((Entity)e).getOwner().equals(owner)){</span>
+<span class="nc" id="L47">                result.add((Unit)e);</span>
+            }
+<span class="nc" id="L49">        }</span>
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        for (int i = 0; i &lt; size; i++){</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            for (int j = 0; j &lt; size; j++){</span>
+<span class="nc" id="L53">                Asset currentAsset = matrix[i][j];</span>
+<span class="nc bnc" id="L54" title="All 4 branches missed.">                if (currentAsset.getType().equals(&quot;unit&quot;) &amp;&amp; !((Entity)currentAsset).getOwner().equals(owner)){</span>
+<span class="nc" id="L55">                    result.add((Unit)currentAsset);</span>
+                }
+            }
+        }
+
+<span class="nc" id="L60">        return result;</span>
+    }
+
+    public static Unit findClosestEnemyUnit(Asset center, GameMap battleMap){
+<span class="nc" id="L64">        int mapSize = battleMap.getHeight();</span>
+<span class="nc" id="L65">        ArrayList&lt;Unit&gt; enemies = locateAllEnemies(center, battleMap);</span>
+<span class="nc" id="L66">        System.out.println(&quot;ОБНАРУЖЕНО ВРАГОВ: &quot; + enemies.size());</span>
+<span class="nc" id="L67">        Unit closest = null;</span>
+<span class="nc" id="L68">        double minDist = mapSize+10;</span>
+        double dist;
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (Unit enemy: enemies){</span>
+<span class="nc" id="L71">            dist = distance(center, enemy);</span>
+<span class="nc" id="L72">            System.out.println(&quot;РАССТОЯНИЕ ДО ВРАГА &quot; + dist);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (dist &lt;= minDist){</span>
+<span class="nc" id="L74">                System.out.println(&quot;БЛИЖЕ ЧЕМ &quot; + minDist + &quot;. ПЕРЕОПРЕДЕЛЯЮ БЛИЖАЙШЕГО.&quot;);</span>
+<span class="nc" id="L75">                closest = enemy;</span>
+<span class="nc" id="L76">                minDist = dist;</span>
+            } else {
+<span class="nc" id="L78">                System.out.println(&quot;ДАЛЕКОВАТ.&quot;);</span>
+            }
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">        return closest;</span>
+    }
+
+
+    public static double distance(Asset center, Asset target){
+//        double x1 = target.getX();
+//        double y1 = target.getY();
+//        double x2 = center.getX();
+//        double y2 = center.getY();
+        //System.out.println(&quot;Вызов функции distance, Координаты центра &quot; + center.getCoordinates() + &quot; Координаты цели &quot; + target.getCoordinates() + &quot; Разность &quot; + center.getCoordinates().subtract(target.getCoordinates()));
+<span class="nc" id="L91">        return (Coordinates.norm(center.getCoordinates().subtract(target.getCoordinates())));</span>
+        //return sqrt(pow(x1 - x2, 2) + pow(y1-y2, 2));
+    }
+
+    public static Asset getCellWithDqOffset(Entity entity, ArrayList&lt;Integer&gt; dQ){
+<span class="nc" id="L96">        return entity.getMap().getMatrix()[entity.getY()+dQ.get(1)][entity.getX()+dQ.get(0)];</span>
+    }
+
+    public static Asset getCellWithDqOffset(Entity entity, Coordinates dQ){
+<span class="nc" id="L100">        Coordinates newcoords = entity.getCoordinates().add(dQ);</span>
+<span class="nc" id="L101">        System.out.println(&quot;новые координаты = &quot; + newcoords);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if ((newcoords.isNormally2D())){</span>
+<span class="nc" id="L103">            return entity.getMap().getMatrix()[entity.getY()+dQ.get(2)][entity.getX()+dQ.get(1)];</span>
+        } else {
+<span class="nc" id="L105">            return entity.getMap().getNon2DEntity(newcoords);</span>
+        }
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

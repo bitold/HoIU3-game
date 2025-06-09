@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpaceWarden.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">misc</a> &gt; <span class="el_source">SpaceWarden.java</span></div><h1>SpaceWarden.java</h1><pre class="source lang-java linenums">package misc;
+
+import asset.Entity;
+import player.Player;
+
+import java.io.Serializable;
+import java.util.*;
+
+public class SpaceWarden implements Serializable {
+<span class="nc" id="L10">    private HashMap&lt;Entity, Integer&gt; convicts = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L11">    private int damageForViolation = 1;</span>
+
+<span class="nc" id="L13">    public SpaceWarden(){</span>
+
+<span class="nc" id="L15">    }</span>
+
+    public void judge(Entity entity, Coordinates newcoords){
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        boolean punish = !entity.isLegalToMove(newcoords);</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (punish){</span>
+<span class="nc" id="L20">            entity.dealDamage(damageForViolation);</span>
+<span class="nc" id="L21">            entity.dealArrestDamage(1);</span>
+<span class="nc bnc" id="L22" title="All 4 branches missed.">            if (entity.isSpaciallyArrested() &amp;&amp; !convicts.containsKey(entity)){</span>
+<span class="nc" id="L23">                convicts.put(entity, 0);</span>
+<span class="nc" id="L24">                System.out.println(&quot;СУЩНОСТЬ &quot; + entity + &quot; АРЕСТОВАНА ! ! ! ! !&quot;);</span>
+
+            }
+        }
+<span class="nc" id="L28">    }</span>
+    public void jailIteration(Player owner){
+<span class="nc" id="L30">        convictIteration(owner);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        for (Map.Entry&lt;Entity, Integer&gt; entry : convicts.entrySet()) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            if (entry.getValue() &gt; 2) {</span>
+<span class="nc" id="L33">                entry.getKey().letFree();</span>
+<span class="nc" id="L34">                convicts.remove(entry.getKey());</span>
+<span class="nc" id="L35">                System.out.println(&quot;Сущность &quot; + entry.getKey() + &quot; ОТСИДЕЛА&quot;);</span>
+            }
+<span class="nc" id="L37">        }</span>
+<span class="nc" id="L38">    }</span>
+
+    public void convictIteration(Player owner){
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for (Map.Entry&lt;Entity, Integer&gt; entry : convicts.entrySet()) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (entry.getKey().getOwner().equals(owner)){</span>
+<span class="nc" id="L43">                entry.setValue(entry.getValue() + 1);</span>
+            }
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -5,30 +5,244 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53f9d435-6d22-441f-8692-d8d5f498e701" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maps/map1.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maps/map2.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/HoIU3-game/menus/EditorMenu.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/HoIU3-game/misc/MapEditor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/saves/b/slot1.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/saves/b/slot9.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/menus/EditorMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/misc/MapEditor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/bluecatcode_mockito_1_10_19_extended.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Asset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Asset.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Cell.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Cell.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Entity.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Entity.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Hero.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Hero.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Unit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/Unit.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/asset/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/Castle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/Castle.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/CastleUI.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/CastleUI.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/castle/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/CellClassificator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/CellClassificator.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/ShopBuildingClassificator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/ShopBuildingClassificator.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/UnitClassificator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/UnitClassificator.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/classification/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/control/Controller.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/control/Controller.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/control/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/control/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/Battle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/Battle.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/Game.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/Game.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/game/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/branchfc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/branchnc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/branchpc.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/bundle.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/class.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/down.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/greenbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/group.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/method.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/package.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/prettify.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/prettify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/redbar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/report.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/report.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/session.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/sort.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/sort.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/source.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-resources/up.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/jacoco-sessions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/main/LAB1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/main/LAB1.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/main/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/main/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/BattleMap.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/BattleMap.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/GameMap.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/GameMap.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/map/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/BuyingMenu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/BuyingMenu.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/ControllerMenu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/ControllerMenu.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/EditorMenu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/EditorMenu.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/GameMenu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/GameMenu.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/StarterMenu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/StarterMenu.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/menus/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Coordinates.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Coordinates.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Locator.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Locator.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/MapEditor.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/MapEditor.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Misc.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/Misc.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/SaveSystem.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/SaveSystem.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/SpaceWarden.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/SpaceWarden.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/misc/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/Computer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/Computer.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/Player.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/Player.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/player/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/Record.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/Record.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/RecordTable.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/RecordTable.java.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/htmlReport/record/index.source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/saves/a/slot1.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/saves/a/slot8.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spacewarden.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/castle/CastleUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/event/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/event/SpaceVortex.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/misc/SpaceWarden.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/record/RecordTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/CastleUITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/CoordinatesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/GameLogicTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/CastleUITest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/CoordinatesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/asset/Entity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/asset/Hero.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/asset/Unit.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/event/Event.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/event/SpaceVortex.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/game/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/map/GameMap.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/menus/GameMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/misc/SpaceWarden.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/player/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/record/RecordTable$PlayerStats.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/record/RecordTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/CastleUITest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/CoordinatesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/GameLogicTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/HoIU3-game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/HoIU3-game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/castle/Castle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/castle/Castle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/classification/CellClassificator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/classification/CellClassificator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/map/GameMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/map/GameMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/GameMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HoIU3-game/menus/GameMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/castle/Castle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/castle/Castle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classification/CellClassificator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classification/CellClassificator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/GameMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/menus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HoIU3-game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/HoIU3-game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/asset/Asset.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/asset/Asset.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/asset/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/asset/Cell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/asset/Entity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/asset/Hero.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/asset/Unit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/castle/Castle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/castle/Castle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/castle/CastleUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/castle/CastleUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/classification/CellClassificator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classification/CellClassificator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/classification/ShopBuildingClassificator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classification/ShopBuildingClassificator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/classification/UnitClassificator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/classification/UnitClassificator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/control/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/control/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/game/Battle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/game/Battle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/game/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/main/LAB1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/LAB1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/map/BattleMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/BattleMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/map/GameMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/BuyingMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/menus/BuyingMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/ControllerMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/menus/ControllerMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/EditorMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/menus/EditorMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/GameMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/menus/StarterMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/menus/StarterMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/Coordinates.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/misc/Coordinates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/Locator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/misc/Locator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/MapEditor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/misc/MapEditor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/Misc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/misc/Misc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/SaveSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/misc/SaveSystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/misc/SpaceWarden.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/player/Computer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player/Computer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/player/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/record/Record.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/record/Record.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HoIU3-game/record/RecordTable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Asset.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/asset/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Cell.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/asset/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Entity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/asset/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Hero.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/asset/Hero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Unit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/asset/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/asset/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/castle/Castle.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/castle/Castle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/castle/Castle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/castle/Castle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/castle/CastleUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/castle/CastleUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/castle/CastleUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/CellClassificator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/CellClassificator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classification/CellClassificator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/ShopBuildingClassificator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/ShopBuildingClassificator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classification/ShopBuildingClassificator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/UnitClassificator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classification/UnitClassificator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/classification/UnitClassificator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/control/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Battle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Battle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/map/BattleMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/map/BattleMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/map/BattleMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/BattleMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/map/GameMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/GameMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/map/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/GameMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/BuyingMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/BuyingMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/menus/BuyingMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/ControllerMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/menus/ControllerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/EditorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/menus/EditorMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/GameMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/menus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/StarterMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menus/StarterMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/menus/StarterMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Coordinates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/Coordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Locator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Locator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/Locator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/MapEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/MapEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Misc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/Misc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/Misc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/SaveSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/SaveSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/misc/SaveSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/misc/SpaceWarden.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Computer.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player/Computer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Computer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player/Computer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/record/Record.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/record/Record.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/record/RecordTable.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OPEN_IN_BROWSER" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="E:\HoIU3-game\htmlReport" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,6 +254,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JavaCoverageOptionsProvider">
+    <option name="myRunnerId" value="jacoco" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -53,18 +270,44 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LAB1.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CastleUITest.UnitBuyingAvailabilityTest.executor": "Run",
+    "JUnit.CastleUITest.executor": "Run",
+    "JUnit.CastleUITest.testBuyBuilding_SufficientGold_BuildsAndDeductsGold.executor": "Run",
+    "JUnit.CastleUITest.testBuyHero_NotEnoughGold_PrintsError.executor": "Run",
+    "JUnit.CastleUITest.testCheckUnitAvailability_WhenBuildingExists_ReturnsTrue.executor": "Run",
+    "JUnit.CastleUITest.testCheckUnitAvailability_WhenNoBuilding_ReturnsFalse.executor": "Run",
+    "JUnit.CoordinatesTest.OutOfBoundsCheckingForMovementVector.executor": "Run",
+    "JUnit.CoordinatesTest.Vectors2DCheckingTest.executor": "Run",
+    "JUnit.CoordinatesTest.executor": "Run",
+    "JUnit.CoordinatesTest.vectorAdditionTest.executor": "Run",
+    "JUnit.CoordinatesTest.vectorNormCalculationTest.executor": "Run",
+    "JUnit.CoordinatesTest.vectorSubtractionTest.executor": "Run",
+    "JUnit.CoordinatesTest.withComponentHashCodePreservationTest.executor": "Run",
+    "JUnit.GameLogicTest.executor": "Run",
+    "JUnit.GameLogicTest.gameLogicPlayerLossByDeath.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "savesystem",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/HoIU3-game",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "G:/HoIU3-game",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.5408805",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "project.structure.side.proportion": "0.14824797",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="JUnit" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.LAB1">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -81,21 +324,149 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="main.LAB1" />
       <module name="HoIU3-game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <module name="HoIU3-game" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CastleUITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HoIU3-game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CastleUITest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CastleUITest.testBuyBuilding_SufficientGold_BuildsAndDeductsGold" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HoIU3-game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CastleUITest" />
+      <option name="METHOD_NAME" value="testBuyBuilding_SufficientGold_BuildsAndDeductsGold" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CastleUITest.testBuyHero_NotEnoughGold_PrintsError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HoIU3-game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CastleUITest" />
+      <option name="METHOD_NAME" value="testBuyHero_NotEnoughGold_PrintsError" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameLogicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HoIU3-game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GameLogicTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameLogicTest.gameLogicPlayerLossByDeath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HoIU3-game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GameLogicTest" />
+      <option name="METHOD_NAME" value="gameLogicPlayerLossByDeath" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="HoIU3-game" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JarApplication">
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Java Scratch">
+      <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
+      <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration default="true" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.LAB1" />
+      <item itemvalue="JUnit.GameLogicTest" />
+      <item itemvalue="JUnit.GameLogicTest.gameLogicPlayerLossByDeath" />
+      <item itemvalue="JUnit.CastleUITest" />
+      <item itemvalue="JUnit.CastleUITest.testBuyBuilding_SufficientGold_BuildsAndDeductsGold" />
+      <item itemvalue="JUnit.CastleUITest.testBuyHero_NotEnoughGold_PrintsError" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GameLogicTest" />
+        <item itemvalue="JUnit.GameLogicTest.gameLogicPlayerLossByDeath" />
+        <item itemvalue="JUnit.CastleUITest" />
+        <item itemvalue="JUnit.CastleUITest.testBuyHero_NotEnoughGold_PrintsError" />
+        <item itemvalue="JUnit.CastleUITest.testBuyBuilding_SufficientGold_BuildsAndDeductsGold" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -125,5 +496,23 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/misc/SpaceWarden.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HoIU3_game$LAB1.exec" NAME="LAB1 Coverage Results" MODIFIED="1749310333582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

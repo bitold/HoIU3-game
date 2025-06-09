@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Entity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">asset</a> &gt; <span class="el_source">Entity.java</span></div><h1>Entity.java</h1><pre class="source lang-java linenums">package asset;
+
+import misc.Coordinates;
+import player.Player;
+
+import java.util.Objects;
+
+import static java.lang.Math.*;
+
+public class Entity extends Asset{
+    private Player owner; // иногда может быть null
+    private int defaultMP;
+    private double currentMP;
+    private int maxHealth;
+    private int currentHealth;
+    private int damage;
+    private int attackRange;
+    private String type;
+<span class="nc" id="L19">    private boolean ableToAttack = true;</span>
+    private boolean alive;
+    private int spaceArrestHP;
+    private boolean spaciallyArrested;
+    private int defaultSpaceArrestHP;
+    Entity(String type, String design, int x, int y, int dist, int hp, int dmg, int attackRange, Player owner){
+<span class="nc" id="L25">        super(&quot;entity&quot;, design, x, y);</span>
+<span class="nc" id="L26">        this.type = type;</span>
+<span class="nc" id="L27">        this.defaultMP = dist;</span>
+<span class="nc" id="L28">        this.currentMP = dist;</span>
+<span class="nc" id="L29">        this.maxHealth = hp;</span>
+<span class="nc" id="L30">        this.currentHealth = hp;</span>
+<span class="nc" id="L31">        this.damage = dmg;</span>
+<span class="nc" id="L32">        this.attackRange = attackRange;</span>
+<span class="nc" id="L33">        this.alive = true;</span>
+<span class="nc" id="L34">        this.owner = owner;</span>
+<span class="nc" id="L35">        this.defaultSpaceArrestHP = 2;</span>
+<span class="nc" id="L36">        this.spaceArrestHP = 2;</span>
+<span class="nc" id="L37">    }</span>
+<span class="nc" id="L38">    Entity(){</span>
+
+<span class="nc" id="L40">    }</span>
+
+
+    public int getCurrentHealth() {
+<span class="nc" id="L44">        return currentHealth;</span>
+    }
+
+    public Player getOwner() {
+<span class="nc" id="L48">        return owner;</span>
+    }
+
+    public void setAbleToAttack(boolean ableToAttack) {
+<span class="nc" id="L52">        this.ableToAttack = ableToAttack;</span>
+<span class="nc" id="L53">    }</span>
+
+    public boolean isAbleToAttack() {
+<span class="nc" id="L56">        return ableToAttack;</span>
+    }
+
+    public void checkHealth(){
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (this.currentHealth &lt;= 0){</span>
+<span class="nc" id="L61">            alive = false;</span>
+<span class="nc" id="L62">            setDesign(&quot;☓&quot;);</span>
+        } else {
+<span class="nc" id="L64">            alive = true;</span>
+        }
+<span class="nc" id="L66">    }</span>
+
+    public void takeMovementPointsForMovingTo(Cell cell){
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (Objects.isNull(cell)){</span>
+<span class="nc" id="L70">            return;</span>
+        }
+<span class="nc" id="L72">        double k = 1;</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (this.getType().equals(&quot;hero&quot;)){</span>
+<span class="nc" id="L74">            boolean isHorsed = ((Hero)this).getOwner().getCastle().isBuilt(&quot;Конюшня&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (isHorsed){</span>
+<span class="nc" id="L76">                System.out.println(&quot;ЕСТЬ КОНЮШНЯ. ПРИМЕНЯЕМ МНОЖИТЕЛЬ.&quot;);</span>
+<span class="nc" id="L77">                k = 0.5;</span>
+            }
+        }
+<span class="nc" id="L80">        takeMP(cell.calculateCost(this.owner)*k);</span>
+<span class="nc" id="L81">    }</span>
+
+    public void takeMP(double MP){
+<span class="nc" id="L84">        setCurrentMP(currentMP - MP);</span>
+<span class="nc" id="L85">    }</span>
+
+    @Override
+    public void setDesign(String design) {
+<span class="nc" id="L89">        super.setDesign(design);</span>
+<span class="nc" id="L90">    }</span>
+
+    public boolean isAlive() {
+<span class="nc" id="L93">        return alive;</span>
+    }
+
+    public double getCurrentMP() {
+<span class="nc" id="L97">        return currentMP;</span>
+    }
+
+    public int getDefaultMP() {
+<span class="nc" id="L101">        return defaultMP;</span>
+    }
+
+    public int getHealth() {
+<span class="nc" id="L105">        return currentHealth;</span>
+    }
+
+    public int getDamage() {
+<span class="nc" id="L109">        return damage;</span>
+    }
+
+    public int getAttackRange() {
+<span class="nc" id="L113">        return attackRange;</span>
+    }
+
+    public void setHealth(int health) {
+<span class="nc" id="L117">        this.currentHealth = health;</span>
+<span class="nc" id="L118">    }</span>
+
+    public void setCurrentHealth(int currentHealth) {
+<span class="nc" id="L121">        this.currentHealth = currentHealth;</span>
+<span class="nc" id="L122">    }</span>
+
+    public void dealDamage(int dmg){
+<span class="nc" id="L125">        this.currentHealth = this.currentHealth - dmg;</span>
+<span class="nc" id="L126">    }</span>
+
+
+    public void setCurrentMP(double currentMP) {
+<span class="nc" id="L130">        this.currentMP = currentMP;</span>
+<span class="nc" id="L131">    }</span>
+
+    public boolean isExhausted(){
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        return (currentMP &lt;= 0);</span>
+    }
+
+
+    public boolean isSpaciallyArrested() {
+<span class="nc" id="L139">        return spaciallyArrested;</span>
+    }
+
+    public void setSpaciallyArrested(boolean spaciallyArrested) {
+<span class="nc" id="L143">        this.spaciallyArrested = spaciallyArrested;</span>
+<span class="nc" id="L144">    }</span>
+
+
+    /**
+     * Проверяет, легален ли ход сущности для Стража Пространства.
+     * @param newcoords
+     * @return
+     */
+    public boolean isLegalToMove(Coordinates newcoords){
+<span class="nc" id="L153">        Coordinates oldcoords = this.coordinates;</span>
+<span class="nc" id="L154">        Coordinates dQ = newcoords.subtract(oldcoords);</span>
+
+        //System.out.println(&quot;сущность &quot; + this.getDesign() + &quot; хочет сместится на &quot; + dQ + &quot;, это &quot; + (dQ.isNormally2D() ? &quot; легально&quot; : &quot; нелегально&quot;));
+<span class="nc" id="L157">        return dQ.isNormally2D();</span>
+    }
+
+    public void dealArrestDamage(int dmg){
+<span class="nc" id="L161">        spaceArrestHP-=dmg;</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (spaceArrestHP&lt;=0){</span>
+<span class="nc" id="L163">            setSpaciallyArrested(true);</span>
+        }
+<span class="nc" id="L165">    }</span>
+
+    public void letFree(){
+<span class="nc" id="L168">        setSpaciallyArrested(false);</span>
+<span class="nc" id="L169">        restoreSpaceArrestHealth();</span>
+<span class="nc" id="L170">    }</span>
+
+    public void setSpaceArrestHealth(int spaceArrestHealth) {
+<span class="nc" id="L173">        this.spaceArrestHP = spaceArrestHealth;</span>
+<span class="nc" id="L174">    }</span>
+
+    public void restoreSpaceArrestHealth(){
+<span class="nc" id="L177">        spaceArrestHP = defaultSpaceArrestHP;</span>
+<span class="nc" id="L178">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L182">        return &quot;Entity{&quot; +</span>
+                &quot;owner=&quot; + owner +
+                &quot;, defaultMP=&quot; + defaultMP +
+                &quot;, currentMP=&quot; + currentMP +
+                &quot;, maxHealth=&quot; + maxHealth +
+                &quot;, currentHealth=&quot; + currentHealth +
+                &quot;, damage=&quot; + damage +
+                &quot;, attackRange=&quot; + attackRange +
+                &quot;, type='&quot; + type + '\'' +
+                &quot;, ableToAttack=&quot; + ableToAttack +
+                &quot;, alive=&quot; + alive +
+                &quot;, spaceArrestHP=&quot; + spaceArrestHP +
+                &quot;, spaciallyArrested=&quot; + spaciallyArrested +
+                &quot;, defaultSpaceArrestHP=&quot; + defaultSpaceArrestHP +
+                '}';
+    }
+
+
+    public int getSpaceArrestHP() {
+<span class="nc" id="L201">        return spaceArrestHP;</span>
+    }
+
+
+    public int getViolations(){
+<span class="nc" id="L206">        return defaultSpaceArrestHP-spaceArrestHP;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

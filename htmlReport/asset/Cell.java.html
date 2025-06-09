@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cell.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">asset</a> &gt; <span class="el_source">Cell.java</span></div><h1>Cell.java</h1><pre class="source lang-java linenums">package asset;
+
+import player.Player;
+
+public class Cell extends Asset{
+    int num;
+    private final String design;
+    private final int defaultCost;
+    private final boolean wall;
+    private final double enemyCoefficient;
+    private final Player territoryOwner;
+
+    public Cell(String type, String design, int x, int y, int defaultCost, boolean wall, double ememyCoefficient, Player territoryOwner){
+<span class="nc" id="L14">        super(  type,</span>
+                design,
+                x,
+                y);
+<span class="nc" id="L18">        this.num=num;</span>
+<span class="nc" id="L19">        this.defaultCost=defaultCost;</span>
+<span class="nc" id="L20">        this.design=design;</span>
+<span class="nc" id="L21">        this.wall = wall;</span>
+<span class="nc" id="L22">        this.enemyCoefficient = ememyCoefficient;</span>
+<span class="nc" id="L23">        this.territoryOwner = territoryOwner;</span>
+<span class="nc" id="L24">    }</span>
+
+    public boolean isWall() {
+<span class="nc" id="L27">        return wall;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L32">        return super.toString();</span>
+    }
+
+    public int calculateCost(Player player) {
+<span class="nc" id="L36">        int baseCost = this.getDefaultCost();</span>
+<span class="nc" id="L37">        Player owner = this.getTerritoryOwner();</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">        if (owner != null &amp;&amp; !owner.equals(player)) {</span>
+<span class="nc" id="L39">            return (int) (baseCost * this.getEnemyCoefficient());</span>
+        }
+<span class="nc" id="L41">        return baseCost;</span>
+    }
+
+    public int getNum() {
+<span class="nc" id="L45">        return num;</span>
+    }
+
+    public int getDefaultCost() {
+<span class="nc" id="L49">        return defaultCost;</span>
+    }
+
+    public Player getTerritoryOwner() {
+<span class="nc" id="L53">        return territoryOwner;</span>
+    }
+
+    public double getEnemyCoefficient() {
+<span class="nc" id="L57">        return enemyCoefficient;</span>
+    }
+
+    @Override
+    public String getDesign() {
+<span class="nc" id="L62">        return design;</span>
+    }
+
+    @Override
+    public String getType() {
+<span class="nc" id="L67">        return &quot;cell&quot;;</span>
+    }
+
+    public String getCellType(){
+<span class="nc" id="L71">        return type;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BattleMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LAB1 Coverage Results</a> &gt; <a href="index.source.html" class="el_package">map</a> &gt; <span class="el_source">BattleMap.java</span></div><h1>BattleMap.java</h1><pre class="source lang-java linenums">package map;
+
+import asset.Asset;
+import classification.CellClassificator;
+
+public class BattleMap extends GameMap {
+
+    public BattleMap(int sideL){
+<span class="nc" id="L9">        super(sideL, sideL, 0, 0, 0, 0);</span>
+<span class="nc" id="L10">        this.mapMatrix = generateMapMatrix(sideL);</span>
+<span class="nc" id="L11">        this.matrix = generateMapMatrix(sideL);</span>
+<span class="nc" id="L12">    }</span>
+
+    Asset[][] generateMapMatrix(int s) {
+<span class="nc" id="L15">        Asset[][] result = new Asset[s][s];</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        for (int i = 0; i &lt; s; i++) {</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">            for (int j = 0; j &lt; s; j++){</span>
+<span class="nc bnc" id="L18" title="All 6 branches missed.">                if (s-i == j &amp;&amp; (i-s/2)&gt;2 &amp;&amp; (j-s/2)&gt;2){</span>
+<span class="nc" id="L19">                    result[i][j] = CellClassificator.createCell(CellClassificator.WALL, null);</span>
+<span class="nc" id="L20">                    result[i][j].setX(j);</span>
+<span class="nc" id="L21">                    result[i][j].setY(i);</span>
+                } else {
+<span class="nc" id="L23">                    result[i][j] = CellClassificator.createCell(CellClassificator.GRASS, null);</span>
+<span class="nc" id="L24">                    result[i][j].setX(j);</span>
+<span class="nc" id="L25">                    result[i][j].setY(i);</span>
+                }
+            }
+        }
+<span class="nc" id="L29">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
