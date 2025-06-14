@@ -2476,3 +2476,63 @@ INFO: Entity Герой [∇] 2.0MP   Координаты: [{1=7, 2=3, 4=1, 7=1
 WARNING: Сущность Герой [∇] 2.0MP   Координаты: [{1=7, 2=3, 4=1, 7=1, 9=1}] АРЕСТОВАН арестована
 июн. 09, 2025 8:01:44 PM misc.SpaceWarden judge
 INFO: Entity Герой [∇] 1.0MP   Координаты: [{1=7, 2=3, 4=1, 6=1, 7=1, 9=1}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=3, 4=1, 6=1, 7=1, 9=1}]. Damage applied: 1
+июн. 14, 2025 1:01:59 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 1.0MP   Координаты: [{1=8, 2=5, 3=1, 4=1, 6=1}] НАРУШЕНИЙ: 1 violated movement rules at coordinates [{1=8, 2=5, 3=1, 4=1, 6=1}]. Damage applied: 1
+июн. 14, 2025 1:01:59 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 3.0MP   Координаты: [{1=7, 2=3, 3=1, 5=1}] НАРУШЕНИЙ: 1 violated movement rules at coordinates [{1=7, 2=3, 3=1, 5=1}]. Damage applied: 1
+июн. 14, 2025 1:01:59 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 2.0MP   Координаты: [{1=7, 2=3, 3=1, 6=1, 7=1}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=3, 3=1, 6=1, 7=1}]. Damage applied: 1
+июн. 14, 2025 1:01:59 PM misc.SpaceWarden judge
+WARNING: Сущность Герой [∇] 2.0MP   Координаты: [{1=7, 2=3, 3=1, 6=1, 7=1}] АРЕСТОВАН арестована
+июн. 14, 2025 1:01:59 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 1.0MP   Координаты: [{1=7, 2=3, 3=1, 6=2, 7=1}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=3, 3=1, 6=2, 7=1}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 8.0MP   Координаты: [{1=6, 2=5, 3=1, 6=1, 8=2}] АРЕСТОВАН violated movement rules at coordinates [{1=6, 2=5, 3=1, 6=1, 8=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+WARNING: Сущность Герой [∇] 8.0MP   Координаты: [{1=6, 2=5, 3=1, 6=1, 8=2}] АРЕСТОВАН арестована
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 7.0MP   Координаты: [{1=6, 2=5, 6=1, 8=2}] АРЕСТОВАН violated movement rules at coordinates [{1=6, 2=5, 6=1, 8=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 6.0MP   Координаты: [{1=6, 2=5, 3=1, 8=2}] АРЕСТОВАН violated movement rules at coordinates [{1=6, 2=5, 3=1, 8=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 3.0MP   Координаты: [{1=4, 2=5, 3=1, 8=2}] АРЕСТОВАН violated movement rules at coordinates [{1=4, 2=5, 3=1, 8=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 2.0MP   Координаты: [{1=4, 2=5, 3=1, 8=2}] АРЕСТОВАН violated movement rules at coordinates [{1=4, 2=5, 3=1, 8=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 10.0MP   Координаты: [{1=7, 2=3, 3=1, 5=1, 6=2, 7=1}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=3, 3=1, 5=1, 6=2, 7=1}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 9.0MP   Координаты: [{1=7, 2=3, 3=1, 6=2, 7=2}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=3, 3=1, 6=2, 7=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 7.0MP   Координаты: [{1=7, 2=4, 5=1, 6=2, 7=2}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=4, 5=1, 6=2, 7=2}]. Damage applied: 1
+июн. 14, 2025 1:03:03 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 6.0MP   Координаты: [{1=7, 2=4, 3=1, 5=1, 6=1, 7=2}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=4, 3=1, 5=1, 6=1, 7=2}]. Damage applied: 1
+июн. 14, 2025 1:03:04 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 5.0MP   Координаты: [{1=7, 2=4, 3=1, 5=1, 6=1, 7=2}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=4, 3=1, 5=1, 6=1, 7=2}]. Damage applied: 1
+июн. 14, 2025 1:03:04 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 4.0MP   Координаты: [{1=7, 2=4, 3=1, 5=1, 6=2, 7=1}] АРЕСТОВАН violated movement rules at coordinates [{1=7, 2=4, 3=1, 5=1, 6=2, 7=1}]. Damage applied: 1
+июн. 14, 2025 1:03:04 PM misc.SpaceWarden judge
+INFO: Entity Герой [∇] 2.0MP   Координаты: [{1=6, 2=4, 5=1, 6=2, 7=2}] АРЕСТОВАН violated movement rules at coordinates [{1=6, 2=4, 5=1, 6=2, 7=2}]. Damage applied: 1
+июн. 14, 2025 3:23:57 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=3, 2=4, 3=1}]. Damage applied: 1
+июн. 14, 2025 3:23:59 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=3, 2=4, 3=2}]. Damage applied: 1
+июн. 14, 2025 3:23:59 PM misc.SpaceWarden judge
+WARNING: Entity hero of player a  is arrested.
+июн. 14, 2025 3:26:17 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=3, 2=4, 3=1}]. Damage applied: 1
+июн. 14, 2025 3:26:20 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=3, 2=4, 3=2}]. Damage applied: 1
+июн. 14, 2025 3:26:20 PM misc.SpaceWarden judge
+WARNING: Entity hero of player a  is arrested.
+июн. 14, 2025 3:26:29 PM misc.SpaceWarden jailIteration
+INFO: Arrest of entity hero of player a is over.
+июн. 14, 2025 3:26:58 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=3, 2=4, 3=1}]. Damage applied: 1
+июн. 14, 2025 3:29:43 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=2, 2=5, 3=1}]. Damage applied: 1
+июн. 14, 2025 3:29:43 PM misc.SpaceWarden judge
+INFO: Entity hero of player a violated movement rules at coordinates [{1=2, 2=5, 3=2}]. Damage applied: 1
+июн. 14, 2025 3:29:43 PM misc.SpaceWarden judge
+WARNING: Entity hero of player a  is arrested.
+июн. 14, 2025 3:29:58 PM misc.SpaceWarden jailIteration
+INFO: Arrest of entity hero of player a is over.

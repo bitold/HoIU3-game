@@ -14,7 +14,7 @@ public class SpaceVortex extends Event{
     public SpaceVortex(){
         random = new Random();
         maxDimensionNumberDelta = 10;
-        probability = 0.8;
+        probability = 0.1;
         duration = 2;
         movesLeft = duration;
         active = false;

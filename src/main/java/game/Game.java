@@ -35,8 +35,9 @@ public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     boolean freshlyLoaded;
     SpaceVortex vortex;
+    Long eachMoveCounter;
+    Long globalMoveCounter;
 
-    // Пример метода сохранения игры
     public void saveToSlot(String baseDir, String nickname, int slotNumber) {
         String dirPath = baseDir + "/saves/" + nickname;
         String filePath = dirPath + "/slot" + slotNumber + ".dat";
@@ -80,6 +81,8 @@ public class Game implements Serializable {
         controllerMenu = new ControllerMenu(controller);
         controller.setBattling(false);
         gameMenu = new GameMenu(this);
+        eachMoveCounter = 0L;
+        globalMoveCounter = 0L;
     }
     public Game(){
         setFreshlyLoaded(true);
@@ -170,6 +173,9 @@ public class Game implements Serializable {
 
         // Инициализация событий
         initEvents();
+        // Запуск счетчика ходов
+        eachMoveCounter = 0L;
+        globalMoveCounter = 0L;
     }
 
     public void initializeCustomMapGame(GameMap map, String nickname){
@@ -252,6 +258,9 @@ public class Game implements Serializable {
 
         // Инициализация событий
         initEvents();
+        // Запуск счетчика ходов
+        eachMoveCounter = 0L;
+        globalMoveCounter = 0L;
     }
 
     public void initEvents(){
@@ -397,6 +406,8 @@ public class Game implements Serializable {
     public void gameCycle(){
         boolean flag = true;
         while (flag){
+            eachMoveCounter+=1;
+            globalMoveCountCalc();
             eventHandler();
             if (this.checkEndgame(getCurrentlyMoving())){
                 flag = false;
@@ -414,6 +425,13 @@ public class Game implements Serializable {
         getGameMenu().printGameOver();
     }
 
+    public void setGlobalMoveCounter(Long globalMoveCounter) {
+        this.globalMoveCounter = globalMoveCounter;
+    }
+
+    void globalMoveCountCalc(){
+        setGlobalMoveCounter(eachMoveCounter / 2L);
+    }
 
     public void battleCycle(){
         boolean flag = true;

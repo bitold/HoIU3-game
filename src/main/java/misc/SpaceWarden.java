@@ -1,6 +1,8 @@
 package misc;
 
 import asset.Entity;
+import asset.Hero;
+import asset.Unit;
 import player.Player;
 
 import java.io.IOException;
@@ -35,11 +37,11 @@ public class SpaceWarden implements Serializable {
         if (punish){
             entity.dealDamage(damageForViolation);
             entity.dealArrestDamage(1);
-            logger.info("Entity " + entity + " violated movement rules at coordinates " + newcoords +
+            logger.info("Entity " + entity.getType() + " of player " + entity.getOwner() + " violated movement rules at coordinates " + newcoords +
                     ". Damage applied: " + damageForViolation);
             if (entity.isSpaciallyArrested() && !convicts.containsKey(entity)){
                 convicts.put(entity, 0);
-                logger.warning("Сущность " + entity + " арестована");
+                logger.warning("Entity " + entity.getType() + " of player " + entity.getOwner() + "  is arrested.");
             } else if (entity.isSpaciallyArrested()) {
                 moveToPreviousPlace(entity, oldcoords, newcoords);
             }
@@ -52,10 +54,10 @@ public class SpaceWarden implements Serializable {
     public void jailIteration(Player owner){
         convictIteration(owner);
         for (Map.Entry<Entity, Integer> entry : convicts.entrySet()) {
-            if (entry.getValue() > 2) {
+            if (entry.getValue() >= 2) {
                 entry.getKey().letFree();
                 convicts.remove(entry.getKey());
-                logger.info("Арест сущности " + entry.getKey() + " окончен");
+                logger.info("Arrest of entity " + entry.getKey().getType() + " of player " + entry.getKey().getOwner() + " is over.");
             }
         }
     }
